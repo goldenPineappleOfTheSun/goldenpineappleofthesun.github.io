@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="styles/reset.css">
+	<link rel="stylesheet" href="styles/common.css">
+	<link rel="stylesheet" href="styles/doctorname.css">
+</head>
+<body>
+	
+	<header class="header">
+		<h1 class="header__name">Городская клиническая поликлиника №2</h1>
+		<div class="header__address">ул. Братьев Игнатовых, д.3. Регистратура 221-82-82</div>
+		<div class="header__time">-------------------</div>
+	</header>
+
+	<div class="page-control">
+		<a href="doctor.html" class="page-control__back">Назад</a>
+		<span class="page-control__doctor">Терапевт</span>
+		<a href="index.html" class="page-control__exit">Выход</a>
+		<div class="page-control__patient">
+			<div class="page-control__patient-ico"><object data="svg/patient-ico.svg" type="image/svg+xml"></object></div>
+			<div class="page-control__patient-name">Константин Константинович П.</div>
+		</div>
+	</div>
+
+	<div class="doctors doctors-row">
+		<div class="col-left">
+			<div class="doctors__table-wrapper">
+				<table class="doctors__table">
+					<thead class="doctors__tr-th">
+					<tr>
+						<th class="doctors__th">Врач</th>
+						<th class="doctors__th">Ближайшая запись</th>
+						<th class="doctors__th">Участок</th>
+						<th class="doctors__th">Кабинет</th>
+					</tr>
+					</thead>
+					<tr class="doctors__tr">
+						<td class="doctors__td doctors__td_primary">Дранишникова Ирина Александровна</td>
+						<td class="doctors__td">12.08.2018 пн 11:30</td>
+						<td class="doctors__td">3</td>
+						<td class="doctors__td">54</td>
+					</tr>
+					<tr class="doctors__tr">
+						<td class="doctors__td doctors__td_primary">Казновский Михаил Сергеевич</td>
+						<td class="doctors__td">12.08.2018 пн 11:30</td>
+						<td class="doctors__td">11</td>
+						<td class="doctors__td">123</td>
+					</tr>
+					<tr class="doctors__tr">
+						<td class="doctors__td">Огородникова Елена Викторовна</td>
+						<td class="doctors__td">12.08.2018 пн 11:30</td>
+						<td class="doctors__td">4</td>
+						<td class="doctors__td">147</td>
+					</tr>
+					<tr class="doctors__tr">
+						<td class="doctors__td">Петрова Ирина Владимировна</td>
+						<td class="doctors__td">12.08.2018 пн 11:30</td>
+						<td class="doctors__td">24</td>
+						<td class="doctors__td">28</td>
+					</tr>
+					<tr class="doctors__tr">
+						<td class="doctors__td">Соколова Кристина Михайловна</td>
+						<td class="doctors__td">12.08.2018 пн 11:30</td>
+						<td class="doctors__td">45</td>
+						<td class="doctors__td">131</td>
+					</tr>
+					<tr class="doctors__tr doctors__tr_not-able">
+						<td class="doctors__td">Антипов Юлия Николаевна</td>
+						<td class="doctors__td">12.08.2018 пн 11:30</td>
+						<td class="doctors__td">23</td>
+						<td class="doctors__td">12</td>
+					</tr>
+					<tr class="doctors__tr doctors__tr_not-able">
+						<td class="doctors__td">Бажукова Елена Леонидовна</td>
+						<td class="doctors__td">12.08.2018 пн 11:30</td>
+						<td class="doctors__td">12</td>
+						<td class="doctors__td">76</td>
+					</tr>
+					<tr class="doctors__tr doctors__tr_not-able">
+						<td class="doctors__td">Карягина Елена Викторовна</td>
+						<td class="doctors__td">12.08.2018 пн 11:30</td>
+						<td class="doctors__td">23</td>
+						<td class="doctors__td">44</td>
+					</tr>
+					<tr class="doctors__tr doctors__tr_not-able">
+						<td class="doctors__td">Кладова Наталья Игоревна</td>
+						<td class="doctors__td">12.08.2018 пн 11:30</td>
+						<td class="doctors__td">213</td>
+						<td class="doctors__td">33</td>
+					</tr>
+					<tr class="doctors__tr doctors__tr_not-able">
+						<td class="doctors__td">Мельникова Ольга Ивановна</td>
+						<td class="doctors__td">12.08.2018 пн 11:30</td>
+						<td class="doctors__td">21</td>
+						<td class="doctors__td">32</td>
+					</tr>
+					<tr class="doctors__tr doctors__tr_not-able">
+						<td class="doctors__td">Мельникова Ольга Ивановна</td>
+						<td class="doctors__td">12.08.2018 пн 11:30</td>
+						<td class="doctors__td">21</td>
+						<td class="doctors__td">32</td>
+					</tr>
+					<tr class="doctors__tr doctors__tr_not-able">
+						<td class="doctors__td">Мельникова Ольга Ивановна</td>
+						<td class="doctors__td">12.08.2018 пн 11:30</td>
+						<td class="doctors__td">21</td>
+						<td class="doctors__td">32</td>
+					</tr>
+					<tr class="doctors__tr doctors__tr_not-able">
+						<td class="doctors__td">Мельникова Ольга Ивановна</td>
+						<td class="doctors__td">12.08.2018 пн 11:30</td>
+						<td class="doctors__td">21</td>
+						<td class="doctors__td">32</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="col-right">
+			<div class="doctors__find">
+				<div class="doctors__button">
+					<span class="strong">Найти 
+					участкового
+					врача</span><br>
+					по адресу
+					обслуживания
+				</div>
+				<div class="doctors__button">
+					<span class="strong">Найти 
+					участкового
+					врача</span><br>
+					по номеру участка
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="scroll-control">
+		<div class="scroll-control__button scroll-control__button-down">
+			<object class="scroll-control__button-svg-1" data="svg/arrow.svg" type="image/svg+xml"></object>
+			<div class="scroll-control__over" onclick="doctorsNameObject.scrollTableDown()"></div>
+		</div>
+		<div class="scroll-control__button scroll-control__button-up">
+			<object class="scroll-control__button-svg-2" data="svg/arrow.svg" type="image/svg+xml"></object>
+			<div class="scroll-control__over" onclick="doctorsNameObject.scrollTableUp()"></div>
+		</div>
+	</div>
+
+	<script src="js/common.js"></script>
+	<script src="js/doctorname.js"></script>
+
+</body>
+</html>

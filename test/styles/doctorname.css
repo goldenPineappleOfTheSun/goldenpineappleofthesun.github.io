@@ -1,0 +1,127 @@
+
+body {
+	background: #1a8a83;
+}
+
+/* Doctors */
+
+.doctors {
+	box-sizing: border-box;
+	margin-bottom: 50px;
+	padding: 30px 30px 0 30px;
+}
+
+.doctors__table-wrapper {
+	position: relative;
+	height: 908px;
+	overflow-y: hidden;
+}
+
+.doctors__table {
+	width: 100%;
+	transition: margin-top 0.3s ease-out;
+}
+
+.doctors__tr {
+	background: #64ffda;
+	border-bottom: 2px solid #1a8a83;
+	transition: background 0.1s ease-out;
+}
+
+.doctors__tr:active {
+	background: #2fcca6;
+}
+
+.doctors__thead {
+	position: absolute;
+	top: 0;
+	box-sizing: border-box;
+	height: 60px;
+}
+
+.doctors__tr_not-able {
+	background: #ffccbc;
+}
+
+.doctors__tr_not-able:active {
+	background: #ecb9a9;
+}
+
+.doctors__th {
+	padding: 20px;
+	color: white;
+	text-align: left;
+}
+
+.doctors__td {
+	position: relative;
+	padding: 35px 20px;
+	color: #06555b;
+	font-size: 1.16rem;
+}
+
+.doctors__td_primary {
+	top: -15px;
+}
+
+.doctors__td_primary:after {
+	content: 'Ваш участковый врач';
+	position: absolute;
+	top: 65px;
+	left: 20px; /* same as parent padding */
+	padding: 3px;
+	color: black;
+	font-size: 0.8rem;
+	font-weight: light;
+	white-space: nowrap;
+	background: #ffeb3b;
+	border-radius: 6px;
+}
+
+/* Buttons */
+
+.doctors__find {
+	position: relative;
+	top: 60px; /* th height */
+	padding: 0 0 0 20px;
+}
+
+.doctors__button {
+	position: relative;
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 40px 0;
+	border: 3px solid #fbe93c;
+	color: white;
+	font-size: 1.33rem;
+	text-align: center;
+	border-radius: 6px;
+	transition: background 0.1s ease-out;
+}
+
+.doctors__button:active {
+	background: #24afa4;
+}
+
+.doctors__button .strong{
+	color: #fbe93c;
+}
+
+/* Grids */
+
+.doctors-row {
+	width: 100%;
+}
+
+.doctors-row .col-left {
+	box-sizing: border-box;
+	float: left;
+	width: 100%;
+	margin-left: -216px;
+	padding-left: 216px;
+}
+
+.doctors-row .col-right {
+	float: right;
+	width: 216px;
+}

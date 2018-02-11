@@ -1,0 +1,227 @@
+
+
+
+body {
+	position: relative;
+	background: #1a8a83;
+}
+
+/* Number */
+
+.policy-number {
+	padding: 75px 65px;
+}
+
+.policy-number__title {
+	margin-bottom: 40px;
+	color: #fbe93c;
+	font-size: 2.16rem;
+}
+
+.policy-number__input {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	margin-bottom: 50px;
+}
+
+.policy-number__gui-over {
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+}
+
+.policy-number__input-number-1,
+.policy-number__input-number-2 {
+	position: absolute;
+	left: 4px;
+	top: 0;
+	color: white;
+	font-family: ptmono, monospace;
+	font-size: 90px;
+	letter-spacing: 6px;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+
+.policy-number__input-number-2 {
+	top: 91px;
+}
+
+.policy-number__input-cursor {
+	position: absolute;
+	left: -16px;
+	top: -3px;
+	color: white;
+	font-family: ptmono, monospace;
+	font-size: 90px;
+	transition: opacity 0.3s ease-in;
+}
+
+.policy-number__input-cell {
+	float: left;
+	box-sizing: border-box;
+	width: 60px;
+	height: 92px;
+	border-right: 1px solid #1a8c94;
+	border-bottom: 1px solid #1a8c94;
+	background: #004b53;
+}
+
+.policy-number__gui-over-cell {
+	float: left;
+	box-sizing: border-box;
+	width: 60px;
+	height: 92px;
+}
+
+.policy-number__instrutions {
+	position: relative;
+	left: 70px;
+	width: 345px;
+}
+
+/* Dial */
+
+.policy-dial {
+	padding: 75px 65px;
+}
+
+.policy-dial__row {
+}
+
+.policy-dial__button,
+.policy-dial__button-md {
+	position: relative;
+	width: 140px;
+	height: 140px;
+	font-size: 2.5rem;
+	line-height: 140px;
+}
+
+.policy-dial__button-md {
+	position: relative;
+	width: 290px;
+}
+
+.policy-dial__over {
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+}
+
+.policy-dial__backspace-svg {
+	width: 60px;
+}
+
+/* Next */
+
+.next {
+	position: absolute;    
+	width: 100%;
+	bottom: 0; /* only if body height is fixed */
+	box-sizing: border-box;
+	height: 163px;
+	padding: 26px 150px;
+	background: #004B53;
+}
+
+.next__button {
+	position: relative;
+	display: block;
+	float: right;
+	width: 400px;
+	height: 110px;
+	margin-right: 60px;
+	border-radius: 6px;
+	color: #546e7a;
+	font-size: 3.33rem;
+	font-family: roboto;
+	text-align: center;
+	text-decoration: none;
+	line-height: 110px;
+	background: #607d8b;
+	box-shadow: 0 3px 0px 0px #546e7a;
+	/*transition: background 0.1s ease-out, color 0.2s ease-out;*/
+}
+
+.next__button:active {
+	color: #455861;
+	background: #779fb3;
+}
+
+.next__button:active:after {
+	color: #455861;
+	background: #779fb3;
+}
+
+.next__button:after {
+	content: '';
+	position: absolute;
+	width: 82px; 
+	height: 82px;
+	transform:  scaleX(0.9) translate(75px, 15px) rotate(45deg);
+	background: #607d8b;
+	border-radius: 6px;
+}
+
+/* Grids */
+
+.policy-row {
+	position: relative;
+	min-height: 793px;
+}
+
+.policy-row:before {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 0;
+	width: 0px;
+	height: 100%;
+	border-right: 4px solid #77b9b6;
+}
+
+.policy-row:after {
+	content: ' ';
+	position: absolute;
+	left: 50%;
+	top: 0;
+	width: 30px;
+	height: 30px;
+	transform: translate(-15.5px, 185px) rotate(45deg);
+	background: #1a8a83;
+	border-left: 4px solid #77b9b6;
+	border-bottom: 4px solid #77b9b6;
+	border-radius: 6px;
+}
+
+.policy-row .col-left {
+	float: left;
+	width: 50%;
+}
+
+.policy-row .col-right {
+	float: left;
+	width: 50%;
+}
+
+.dial-row {
+	overflow: hidden;
+	width: 100%;
+	padding-bottom: 12px;
+}
+
+.dial-row .col-sm {
+	float: left;
+	width: 150px;
+}
+
+.dial-row .col-md {
+	float: left;
+	width: 290px;
+}

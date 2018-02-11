@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Document</title>
+	<link rel="stylesheet" href="styles/reset.css">
+	<link rel="stylesheet" href="styles/common.css">
+	<link rel="stylesheet" href="styles/time.css">
+</head>
+<body>
+	
+	<header class="header">
+		<h1 class="header__name">Городская клиническая поликлиника №2</h1>
+		<div class="header__address">ул. Братьев Игнатовых, д.3. Регистратура 221-82-82</div>
+		<div class="header__time">-------------------</div>
+	</header>
+
+	<div class="page-control">
+		<a href="doctorname.html" class="page-control__back">Назад</a>
+		<span class="page-control__doctor">Терапевт Амолатова Т. Ю.</span>
+		<a href="index.html" class="page-control__exit">Выход</a>
+		<div class="page-control__patient">
+			<div class="page-control__patient-ico"><object data="svg/patient-ico.svg" type="image/svg+xml"></object></div>
+			<div class="page-control__patient-name">Константин Константинович П.</div>
+		</div>
+	</div>
+
+	<div class="dates">
+		<div class="days-wrapper">
+			<div class="days">
+				<div class="day day_selected">
+					<div class="day__of-the-week">четверг</div>
+					<div class="day__of-the-month">23</div>
+					<div class="day__month">августа</div>
+				</div>
+				<div class="day">
+					<div class="day__of-the-week">пятница</div>
+					<div class="day__of-the-month">24</div>
+					<div class="day__month">августа</div>
+				</div>
+				<div class="day day_not-able">
+					<div class="day__of-the-week">суббота</div>
+					<div class="day__of-the-month">25</div>
+					<div class="day__month">августа</div>
+				</div>
+				<div class="day day_not-able">
+					<div class="day__of-the-week">воскресенье</div>
+					<div class="day__of-the-month">26</div>
+					<div class="day__month">августа</div>
+				</div>
+				<div class="day">
+					<div class="day__of-the-week">понедельник</div>
+					<div class="day__of-the-month">27</div>
+					<div class="day__month">августа</div>
+				</div>
+				<div class="day day_not-able">
+					<div class="day__of-the-week">вторник</div>
+					<div class="day__of-the-month">28</div>
+					<div class="day__month">августа</div>
+				</div>
+				<div class="day">
+					<div class="day__of-the-week">среда</div>
+					<div class="day__of-the-month">29</div>
+					<div class="day__month">августа</div>
+				</div>
+				<div class="day">
+					<div class="day__of-the-week">четверг</div>
+					<div class="day__of-the-month">30</div>
+					<div class="day__month">августа</div>
+				</div>
+				<div class="day">
+					<div class="day__of-the-week">пятница</div>
+					<div class="day__of-the-month">31</div>
+					<div class="day__month">августа</div>
+				</div>
+				<div class="day">
+					<div class="day__of-the-week">суббота</div>
+					<div class="day__of-the-month">1</div>
+					<div class="day__month">сентября</div>
+				</div>
+				<div class="day">
+					<div class="day__of-the-week">воскресенье</div>
+					<div class="day__of-the-month">2</div>
+					<div class="day__month">сентября</div>
+				</div>
+				<div class="day">
+					<div class="day__of-the-week">понедельник</div>
+					<div class="day__of-the-month">3</div>
+					<div class="day__month">сентября</div>
+				</div>
+				<div class="day">
+					<div class="day__of-the-week">вторник</div>
+					<div class="day__of-the-month">4</div>
+					<div class="day__month">сентября</div>
+				</div>
+				<div class="day">
+					<div class="day__of-the-week">среда</div>
+					<div class="day__of-the-month">5</div>
+					<div class="day__month">сентября</div>
+				</div>
+				<div class="day">
+					<div class="day__of-the-week">четверг</div>
+					<div class="day__of-the-month">6</div>
+					<div class="day__month">сентября</div>
+				</div>
+				<div class="day">
+					<div class="day__of-the-week">пятница</div>
+					<div class="day__of-the-month">7</div>
+					<div class="day__month">сентября</div>
+				</div>
+				<div class="day">
+					<div class="day__of-the-week">суббота</div>
+					<div class="day__of-the-month">8</div>
+					<div class="day__month">сентября</div>
+				</div>
+			</div>
+			<div class="days__gui">
+				<div class="days__left">
+					<object class="days__left-svg" data="svg/arrow.svg" type="image/svg+xml"></object>
+					<div class="days__left-over" onclick="daysSheduleObject.scrollDayLeft()"></div>
+				</div>
+				<div class="days__right">
+					<object class="days__right-svg" data="svg/arrow.svg" type="image/svg+xml"></object>
+					<div class="days__left-over" onclick="daysSheduleObject.scrollDayRight()"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="shedule">
+		<div class="shedule__header">
+			<div class="shedule__title">23 августа 2017 <span class="of-the-week">четверг</span></div>
+			<div class="shedule__note">
+				<object class="shedule__note-svg" data="svg/exclaim.svg" type="image/svg+xml"></object>
+				<div class="shedule__note-text">Примечание врача: <span class="white">Без бахил не принимаю!</span></div>
+			</div>
+		</div>
+		<div class="shedule__table-wrapper">
+			<div class="shedule__table">
+				<div class="cell ">
+					<div class="cell__time">10:5</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">10:10</div>
+				</div>
+				<div class="cell  cell_note">
+					<div class="cell__time">10:15</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">10:20</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">10:25</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">10:30</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">10:35</div>
+				</div>
+				<div class="cell cell_not-able ">
+					<div class="cell__time">10:40</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">10:45</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">10:50</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">10:55</div>
+				</div>
+				<div class="cell  cell_note">
+					<div class="cell__time">11:0</div>
+				</div>
+				<div class="cell cell_not-able ">
+					<div class="cell__time">11:5</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">11:10</div>
+				</div>
+				<div class="cell cell_not-able ">
+					<div class="cell__time">11:15</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">11:20</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">11:25</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">11:30</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">11:35</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">11:40</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">11:45</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">11:50</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">11:55</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">12:0</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">12:5</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">12:10</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">12:15</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">12:20</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">12:25</div>
+				</div>
+				<div class="cell  cell_note">
+					<div class="cell__time">12:30</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">12:35</div>
+				</div>
+				<div class="cell cell_not-able ">
+					<div class="cell__time">12:40</div>
+				</div>
+				<div class="cell cell_not-able ">
+					<div class="cell__time">12:45</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">12:50</div>
+				</div>
+				<div class="cell cell_not-able ">
+					<div class="cell__time">12:55</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">13:0</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">13:5</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">13:10</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">13:15</div>
+				</div>
+				<div class="cell cell_not-able ">
+					<div class="cell__time">13:20</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">13:25</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">13:30</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">13:35</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">13:40</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">13:45</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">13:50</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">13:55</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">14:0</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">14:5</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">14:10</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">14:15</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">14:20</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">14:25</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">14:30</div>
+				</div>
+				<div class="cell cell_not-able ">
+					<div class="cell__time">14:35</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">14:40</div>
+				</div>
+				<div class="cell cell_not-able ">
+					<div class="cell__time">14:45</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">14:50</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">14:55</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">15:0</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">15:5</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">15:10</div>
+				</div>
+				<div class="cell  cell_note">
+					<div class="cell__time">15:15</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">15:20</div>
+				</div>
+				<div class="cell cell_not-able ">
+					<div class="cell__time">15:25</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">15:30</div>
+				</div>
+				<div class="cell ">
+					<div class="cell__time">15:35</div>
+				</div>
+				<div class="cell cell_not-able ">
+					<div class="cell__time">15:40</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="scroll-control">
+		<div class="scroll-control__button">
+			<object class="scroll-control__button-svg-1" data="svg/arrow.svg" type="image/svg+xml"></object>
+			<div class="scroll-control__over" onclick="timeSheduleObject.scrollTimeDown()"></div>
+		</div>
+		<div class="scroll-control__button">
+			<object class="scroll-control__button-svg-2" data="svg/arrow.svg" type="image/svg+xml"></object>
+			<div class="scroll-control__over" onclick="timeSheduleObject.scrollTimeUp()"></div>
+		</div>
+	</div>
+
+	<script src="js/common.js"></script>
+	<script src="js/days.js"></script>
+	<script src="js/time.js"></script>
+
+</body>
+</html>
