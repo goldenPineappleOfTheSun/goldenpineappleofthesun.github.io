@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body {
+			margin: 0;
+			overflow:hidden;
+		}
+		#data {
+			position: fixed;
+			width: 100vw;
+			height: 100vh;
+		}
+		#petrol {
+			position: absolute;
+			left: 450px;
+			top: 50px;
+			color: gold;
+			font-weight: bold;
+			font-size: 30px;
+		}
+		#score {
+			position: absolute;
+			left: 450px;
+			top: 90px;
+			color: white;
+			font-size: 30px;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="screen" style="display:none">
+	</div>
+
+	<canvas id="canvas" style="position:fixed;width:100%;width:100vw;height:100%;height:100vh;">	
+	</canvas>
+
+	<script src="three.min.js"></script>
+	<script src="threeScene.js"></script>
+	<script src="gm.js"></script>
+
+	<script>
+		'use strict'
+
+		let blackCarSprite      = addSprite('blackCar',      'street-racing-img/car-black.png', 40, 80)
+		let greenCarSprite      = addSprite('greenCar',      'street-racing-img/car-green.png', 40, 80)
+		let redCarSprite        = addSprite('redCar',        'street-racing-img/car-red.png', 40, 80)
+		let yellowCarSprite     = addSprite('yellowCar',     'street-racing-img/car-yellow.png', 40, 80)
+		let blackDeadCarSprite  = addSprite('blackDeadCar',  'street-racing-img/car-black-dead.png', 40, 80)
+		let greenDeadCarSprite  = addSprite('greenDeadCar',  'street-racing-img/car-green-dead.png', 40, 80)
+		let redDeadCarSprite    = addSprite('redDeadCar',    'street-racing-img/car-red-dead.png', 40, 80)
+		let yellowDeadCarSprite = addSprite('yellowDeadCar', 'street-racing-img/car-yellow-dead.png', 40, 80)
+		let racingCarSprite     = addSprite('racingCar',     'street-racing-img/car-racing.png', 40, 80)
+		let racingDeadCarSprite = addSprite('racingDeadCar', 'street-racing-img/car-racing-dead.png', 40, 80)
+		let police1CarSprite    = addSprite('police1Car',    'street-racing-img/car-police-1.png', 40, 80)
+		let police2CarSprite    = addSprite('police2Car',    'street-racing-img/car-police-2.png', 40, 80)
+		let policeDeadCarSprite = addSprite('policeDeadCar', 'street-racing-img/car-police-dead.png', 40, 80)
+		let gasSprite           = addSprite('gas',           'street-racing-img/gas.png', 40, 40)
+
+		//let BlackCarModel = createModel('blackCar', 'street-racing-img/car-black.png', 40, 80, {})
+
+		let carSprites = [blackCarSprite, greenCarSprite, redCarSprite, yellowCarSprite]
+		let deadCarSprites = [blackDeadCarSprite, greenDeadCarSprite, redDeadCarSprite, yellowDeadCarSprite]
+
+		let racingCarObject = addGameObject('racingCar', null)
+			.on.create(function(){
+				this.dead = false;
+				this.vspeed = 0;
+			})
+			.on.step(function(){
+				if (this.dead)
+					return;
+
+				//this.rotation = 0;
+
+				if (global.petrol <= 0){
+					this.speed = 6;
+				}
+
+				global.petrol -= 1;
+
+				this.model.top.rz += 0.1;
+			})
+			.on.collision('carDown', function(){
+				if (this.dead)
+					return;			
+				this.die();
+			})
+			.on.collision('carUp', function(){
+				if (this.dead)
+					return;			
+				this.die();		
+			})
+			.on.collision('gas', function(other){
+				if (this.dead)
+					return;
+				
+				global.petrol = Math.min(1000, global.petrol+400);
+				other.destroy();
+			})
+			.on.keyboard("Left", function(){
+				if (global.petrol > 0 && this.x > 32 && !this.dead)
+					this.x -= 3;
+
+				if (this.rotation > -5)
+					this.rotation -= 1;
+			})
+			.on.keyboard('Right', function(){
+				if (this.dead)
+					return;
+				if (global.petrol > 0 && this.x < 1060 && !this.dead)
+					this.x += 3;
+
+				if (this.rotation < 5)
+					this.rotation += 1;
+			})
+			.on.keyboard('Up', function(){
+				if (global.petrol > 0 && !this.dead)
+					this.y += 4;
+			})
+			.on.keyboard('Down', function(){
+				if (global.petrol > 0 && !this.dead)
+					this.y -= 4;
+			})
+			.registrate('die', function(){
+				this.dead = true
+				this.sprite = racingDeadCarSprite;
+				this.vspeed = 6;
+				playSound('sounds/bsh.wav')
+			})
+			.registrateModel(function(){
+				return createModel('blackCar', 'street-racing-img/car-black.png', 40, 80, {})
+					.add('top', 'street-racing-img/nature-wallpapers-2560x1600-0007.jpg', 40, 80, {z:10, blending: THREE.AdditiveBlending})
+					.root(this).done();
+			})
+
+		let carUpObject = addGameObject('carUp', null)
+			.on.create(function(){
+				this.spriteInd = randomNumber(4);
+				this.sprite = carSprites[this.spriteInd]
+
+				this.dead = false;
+				this.x = 44 + 300;
+				this.y = -80
+				this.vspeed = 3;
+
+				if (dice(2)) {
+					this.x = 44 + 240;
+					this.vspeed = 1.5;
+					if (dice(2)) {
+						this.x = 44 + 180;
+						this.vspeed = 1;
+					}
+				}
+
+				if (!placeIsEmpty(this.x, this.y/*, this.x + 40, this.y + 90*/, "carUp"))
+					this.destroy();
+			})
+			.on.step(function(){
+				if (this.y > 1200)
+					this.destroy()
+			})
+			.on.collision('carUp', function(){
+				if (this.dead)
+					return;
+				
+				this.sprite = deadCarSprites[this.spriteInd];
+				this.vspeed = 6;
+				this.dead = true;
+			})
+			.on.collision('racingCar', function(){
+				if (this.dead)
+					return;
+				
+				this.sprite = deadCarSprites[this.spriteInd];
+				this.vspeed = 6;
+				this.dead = true;
+			})
+
+		let carDownObject = addGameObject('carDown', null)
+			.on.create(function(){
+				this.spriteInd = randomNumber(4);
+				this.sprite = carSprites[this.spriteInd]
+				this.rotation = 180;
+
+				this.dead = false;
+				this.x = 44 + 0;
+				this.y = -80
+				this.vspeed = 14;
+
+				if (dice(2)) {
+					this.x = 44 + 60;
+					this.vspeed = 10;
+					if (dice(2)) {
+						this.x = 44 + 120;
+						this.vspeed = 9;
+					}
+				}
+
+				if (!placeIsEmpty(this.x, this.y,/* this.x + 40, this.y + 80,*/ "carDown"))
+					this.destroy();
+			})
+			.on.step(function(){
+				if (this.y > 1200)
+					this.destroy()
+			})
+			.on.collision('carDown', function(){
+				if (this.dead)
+					return;
+				
+				this.sprite = deadCarSprites[this.spriteInd];
+				this.vspeed = 6;
+				this.dead = true;
+			})
+			.on.collision('racingCar', function(){
+				if (this.dead)
+					return;
+				
+				this.sprite = deadCarSprites[this.spriteInd];
+				this.vspeed = 6;
+				this.dead = true;
+			})
+
+		let gasObject = addGameObject('gas', gasSprite)
+			.on.create(function(){
+				this.x = 50 + randomNumber(300);
+				this.y = -80;
+				this.vspeed = 6;
+			})
+			.on.step(function(){
+				if (this.y > 1200)
+					this.destroy();
+			})
+
+		let controllerObject = addGameObject('controller', null)
+			.on.create(function(){
+				global.petrol = 1000;
+				global.score = 0;
+				this.alarm(0, 5000);
+			})
+			.on.step(function(){
+				global.score += 1;
+				/*if (dice(200))
+					createObject('carUp', 0, 0)
+				if (dice(100))
+					createObject('carDown', 0, 0)*/
+				/*TODO: POLICE*/
+			})
+			.on.alarm(0, function(){
+				createObject('gas', null, 0, 0)
+				this.alarm(0, 3000)
+				stopMusic(this.bgMusic)
+			})
+
+		let initialized = false;
+
+		loadTexture('street-racing-img/car-black.png');
+
+		setTimeout(function(){
+			loadTexture('street-racing-img/nature-wallpapers-2560x1600-0007.jpg');
+		}, 300)
+
+		setTimeout(function(){
+			window.racingCar = createObject('racingCar', null, 0, 0, 'player')
+			createObject('controller', null, 0, 0)
+			initialized = true;
+		}, 100)
+
+		//background.src = 'street-racing-img/bg.png';
+
+		let onstep = function() {
+			if (!initialized)
+				return;
+			threeSceneRender()
+			camera.position.x += (racingCar.x - camera.position.x) / 10
+			camera.position.y += (racingCar.y - camera.position.y) / 10
+		}
+
+	</script>
+</body>
+</html>
