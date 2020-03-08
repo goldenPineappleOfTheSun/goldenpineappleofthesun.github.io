@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        #vue-profit-calculator {
+            padding: 10px 30px 30px 30px;
+            background: #373334;
+            font-family: 'Roboto',Arial,sans-serif;
+            color: #f3ece4;
+            line-height: 1.55;
+            font-weight: 400;
+            user-select: none;
+            overflow: hidden;
+            min-width: 300px;
+        }
+        .vue-profit-calculator-header {
+            font-family: 'Oswald', Arial, sans-serif;
+            font-size: 29px;
+            color: #d11e29;
+            text-align: center;
+            padding: 0 0 15px 0;
+        }
+        .vue-profit-calculator-field {
+            position: relative;
+            margin-bottom: 65px;
+        }
+        .vue-pc-field-title {                
+            margin-bottom: 10px;
+        }
+        .vue-pc-input {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 7px 7px 7px 20px;
+            border-radius: 3px;
+            color: #373334;
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.55;
+            font-weight: 400;
+            font-size: 20px;
+            background: #f3ece4;
+            border: none;
+        }
+        .vue-pc-input::selection {
+            background-color: #b5b2ae;
+        }
+        .vue-pc-input::-moz-selection {
+            background-color: red;
+        }
+        .vue-pc-input-focus {
+            background: wheat;
+        }
+        .vue-pc-input:active,
+        .vue-pc-input:focus {
+            outline: none;
+        }
+        .vue-pc-field-milestones {
+            position: relative;    
+            top: 20px;
+            font-size: 12px;        
+        }
+        .vue-pc-field-milestone {
+            position: absolute;
+            text-align: center;
+        }
+        .vue-pc-fill-bar {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+        .vue-pc-handle {
+            position: absolute;
+            bottom: -40px;
+            left: -30px;
+            width: 100px;
+            height: 50px;
+            margin-left: -40px;
+            background-color: rgba(255, 0, 0, 0.001);
+            z-index: 1;
+        }
+        .vue-pc-handle-ball {
+            position: absolute;
+            top: 0px;
+            left: 40px;
+            width: 1em;
+            height: 1em;
+            border-radius: 50%;
+            background-color: #d11e29;
+        }
+        .vue-pc-fill {
+            position: absolute;
+            bottom: -3px;
+            left: 0px;
+            height: 5px;
+            border-radius: 3px;
+            background-color: #d11e29;
+        }
+        .vue-profit-calculator-tabs {
+            margin: 80px 0 40px 0;
+            overflow: hidden;
+        }
+        .vue-profit-calculator-tab {
+            position: relative;
+            width: 90%;
+            left: 5%;
+            box-sizing: border-box;
+            height: 55px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .vue-profit-calculator-tab:hover {
+            background: #3c3738;
+        }
+        .vue-profit-calculator-pf {
+            min-width: 200px;
+            border: 1.5px solid #d11e29;
+            padding: 0 20px;
+            line-height: 55px;
+            white-space: nowrap;
+        }
+        .vue-profit-calculator-hgf {
+            padding: 15px 20px;
+            min-width: 200px;
+        }
+        .vue-icon-suitcase {
+            position: relative;
+            display: inline-block;
+            top: 7.5px;
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+            background: url('suitcase_1.svg');
+        }
+
+        .vue-profit-calculator-prognosis {
+            position: relative;
+        }
+        .vue-profit-calculator-prognosis-header {
+            display: none;
+        }
+        .vue-profit-calculator-prognosis-header-ontop {
+            display: none;
+            padding: 0 50px 60px 50px;
+            font-size: 24px;
+            text-align: center;
+        }
+        .vue-profit-money-title {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .vue-pc-calc-tile {
+            border: 1px solid #f3ece4;
+            border: 1px solid #807e7d;
+            border-radius: 10px;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .vue-pc-calc-tile-value {            
+            font-size: 20px;
+            color: #d11e29;
+            user-select: text;
+        }
+        .vue-pc-calc-tile-title {    
+            color: #f3ece4;
+            font-size: 14px;
+            user-select: text;
+        }
+        .vue-profit-money-big-tile {
+            margin-bottom: 30px;
+            white-space: nowrap;
+        }
+        .vue-profit-money-left-tile, 
+        .vue-profit-money-middle-tile, 
+        .vue-profit-money-right-tile {
+            display: inline-block;
+            box-sizing: border-box;
+            width: 33%;
+            margin-right: -1%;
+            padding: 5px;
+        }
+        .vue-profit-money-left-tile .vue-pc-calc-tile-title, 
+        .vue-profit-money-middle-tile .vue-pc-calc-tile-title, 
+        .vue-profit-money-right-tile .vue-pc-calc-tile-title {
+            font-size: 12px;
+        }
+        .vue-profit-money-left-tile .vue-pc-calc-tile, 
+        .vue-profit-money-middle-tile .vue-pc-calc-tile, 
+        .vue-profit-money-right-tile .vue-pc-calc-tile {
+            padding: 5px;
+            height: 80px;
+        }
+
+        @media (min-width: 600px) {
+            #vue-profit-calculator {
+                padding: 10px 70px 30px 70px;
+            }
+            .vue-profit-calculator-header {
+                font-size: 42px;
+                padding: 10px 0 10px 0;
+                font-weight: 500;
+            }
+            .vue-pc-input {
+                display: inline-block;
+                padding: 20px 30px;
+                border-radius: 7px;
+                font-size: 28px;
+            }
+            .vue-pc-field-milestone {
+                font-size: 16px;
+            }
+            .vue-profit-calculator-tab {
+                float: left;
+                width: 49%;
+                height: 55px;
+            }
+            .vue-profit-calculator-pf {
+                float: left;
+                left: 0;
+            }
+            .vue-profit-calculator-hgf {
+                float: right;        
+                left: 0;
+            }
+            .vue-profit-calculator-prognosis {
+                padding: 0 40px 0 40px;
+            }
+            .vue-profit-calculator-prognosis-header {
+                display: block;
+                padding: 50px 50px 60px 50px;
+                font-size: 24px;
+                text-align: center;
+            }
+            .vue-profit-money-title {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            .vue-pc-calc-tile {
+                border: 1px solid #f3ece4;
+            }
+            .vue-pc-calc-tile-value {    
+                font-size: 28px;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+            .vue-pc-calc-tile-title {    
+                font-size: 14px;
+            }            
+            .vue-profit-money-left-tile .vue-pc-calc-tile-title, 
+            .vue-profit-money-middle-tile .vue-pc-calc-tile-title, 
+            .vue-profit-money-right-tile .vue-pc-calc-tile-title {
+                font-size: 12px;
+            }
+            .vue-profit-money-left-tile .vue-pc-calc-tile, 
+            .vue-profit-money-middle-tile .vue-pc-calc-tile, 
+            .vue-profit-money-right-tile .vue-pc-calc-tile {
+                padding: 20px;
+                height: 80px;
+            }
+            .vue-profit-money-left-tile, 
+            .vue-profit-money-middle-tile, 
+            .vue-profit-money-right-tile {
+                float: left;
+                width: 30%;
+                position: relative;
+                display: inline-block;
+                box-sizing: border-box;
+                padding: 5px;
+            }
+            .vue-profit-money-left-tile {
+                margin-right: 5.9%;
+            }
+            .vue-profit-money-middle-tile {
+            }
+            .vue-profit-money-right-tile {
+                margin-left: 5.9%;
+            }
+        }
+
+        @media (min-width: 600px) {            
+            .vue-profit-money-left-tile .vue-pc-calc-tile-title, 
+            .vue-profit-money-middle-tile .vue-pc-calc-tile-title, 
+            .vue-profit-money-right-tile .vue-pc-calc-tile-title {
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .vue-profit-calculator-controls {
+                padding: 0 60px 0 60px;
+            }
+            .vue-pc-field-title {
+                margin-bottom: 12px;
+            }
+            .vue-profit-money-title {
+                margin-bottom: 6px;
+            }
+            .vue-profit-calculator-prognosis {
+                padding: 0 60px 0 60px;
+            }
+            .vue-profit-calculator-prognosis-header {
+                display: none;
+            }
+            .vue-profit-calculator-prognosis-header-ontop {
+                display: block;
+            }
+            .vue-profit-calculator-controls {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                float: left;
+                width: 50%;
+            }
+            .vue-profit-calculator-prognosis {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                float: left;
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+
+    <div id="vue-profit-calculator"
+    @mousemove="mouseMove"
+    @touchMove="mouseMove"
+    @mousedown="mouseDown"
+    @touchstart="mouseDown"
+    @mouseup="mouseUp"
+    @touchend="mouseUp">
+        <div class="vue-profit-calculator-header">Калькулятор доходности</div>
+        <div class="vue-profit-calculator-prognosis-header-ontop">Прогноз ожидаемой доходности от инвестиций в Хедж-Фонд</div>
+        <div class="vue-profit-calculator-controls">
+            <div class="vue-profit-calculator-field">
+                <profit-calc-field 
+                title="Сумма инвестиций, S"
+                :min="minMoney"
+                :max="maxMoney"
+                :milestones="['10 000 $', '100 000 $', '1 000 000 $']"
+                @changed="moneyChanged"
+                units="$"
+                :mouse="mouse"
+                :window="windowWidth"
+                :value="money"
+                :precision="1000"
+                :scales="[10000, 100000, 1000000]"/>
+            </div>
+            <div class="vue-profit-calculator-field">
+                <profit-calc-field 
+                title="Период расчета"
+                :min="minPeriod"
+                :max="maxPeriod"
+                :milestones="['3 мес.', '1 год', '6 лет', '12 лет', '30 лет']"
+                @changed="periodChanged"
+                units="мес"
+                :mouse="mouse"
+                :window="windowWidth"
+                :value="period"
+                :scales="[3, 12, 72, 144, 360]"/>
+            </div>
+            <div class="vue-profit-calculator-tabs">
+                <div class="vue-profit-calculator-tab vue-profit-calculator-pf">
+                    Состав портфеля <span class="vue-icon-suitcase"></span>
+                </div>
+                <div class="vue-profit-calculator-tab vue-profit-calculator-hgf">
+                    График доходности хэдж-фонда 
+                </div>
+            </div>
+        </div>
+        <div class="vue-profit-calculator-prognosis">
+            <div class="vue-profit-calculator-prognosis-header">Прогноз ожидаемой доходности от инвестиций в Хедж-Фонд</div>
+            <div class="vue-profit-money">
+                <div class="vue-profit-money-title">Ожидаемый доход, $</div>
+                <div class="vue-profit-money-big-tile">
+                    <profit-calc-tile
+                        :title="bigTileTitle"
+                        :value="moneyAfterSixMonths"
+                        units="$"/>
+                </div>
+                <div class="vue-profit-money-title">Ожидаемый доход, %</div>
+                <div class="vue-profit-money-left-tile">
+                    <profit-calc-tile
+                        title="доходность за 6 месяцев"
+                        :value="sixMonthsPercent"
+                        units="%"/>
+                </div>
+                <div class="vue-profit-money-middle-tile">
+                    <profit-calc-tile
+                        title="среднегодовая за период"
+                        :value="averagePercent"
+                        units="%"/>
+                </div>
+                <div class="vue-profit-money-right-tile">
+                    <profit-calc-tile
+                        title="накопленная за период"
+                        :value="fullPercent"
+                        units="%"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        Vue.component('profit-calc-tile', {
+            props: ['title', 'value', 'units'],
+            template: `
+            <div class="vue-pc-calc-tile">
+                <div class="vue-pc-calc-tile-value">{{value}} {{units}}</div>
+                <div class="vue-pc-calc-tile-title">{{title}}</div>
+            </div>`
+        })
+
+        Vue.component('profit-calc-field', {
+            props: ['title', 'min', 'max', 'milestones', 'value', 'units', 'mouse', 'window', 'precision', 'scales'],
+            data: function () {
+                return {
+                    input: false,
+                    typed: '',
+                    handle: false,
+                    handlex: false,
+                    handlemin: 0,
+                    handlemax: 0,
+                    grabpos: 0,
+                    handleoffset: 0
+                }
+            },
+            computed:  {
+                formatted: function() {
+                    if (this.value < 1000)    
+                    {        
+                        return this.value + ' ' + this.units
+                    }
+                    else {    
+                        var result = ''
+                        var value = this.value.toString()
+                        for (var i=value.length; i>=0; i-=3) {
+                            result = value.substring(i-3, i) + ' ' + result
+                        }    
+                        result = result.trim()
+                        return result + ' ' + this.units
+                    }    
+                },
+                handlePosition: function() {
+                    var index = this.findLeft(this.value).i
+                    var left = this.findLeft(this.value).x
+                    var right = this.findRight(this.value).x
+                    var leftside = (this.handlemax - this.handlemin) / (this.scales.length - 1) * index 
+                    var rightside = (this.handlemax - this.handlemin) / (this.scales.length - 1) * (index + 1)
+                    var x = this.handle 
+                        ? this.handlex
+                        : leftside + (rightside - leftside) / (right - left) * (this.value - left) - 10 ^ 0 + 1
+                    return x
+                },
+                fillWidth: function() {
+                    var index = this.findLeft(this.value).i
+                    var left = this.findLeft(this.value).x
+                    var right = this.findRight(this.value).x
+                    var leftside = (this.handlemax - this.handlemin) / (this.scales.length - 1) * index 
+                    var rightside = (this.handlemax - this.handlemin) / (this.scales.length - 1) * (index + 1)
+                    var x = this.handle 
+                        ? this.handlex
+                        : leftside + (rightside - leftside) / (right - left) * (this.value - left) - 10 ^ 0 + 1
+                    return x > 0 ? x : 0
+                }
+            },
+            methods: {
+                changed: function(event) {
+                    this.$emit('changed', {'value': +event.target.value.replace(/\D/g, '')})
+                },
+                handleGrabbed: function(event) {
+                    this.handle = true;
+                    var rect = this.$refs.handle.getBoundingClientRect()
+                    this.grabpos = (event.clientX - rect.left - 40) || 0
+                },
+                focus: function(event) {
+                    this.input = true
+                    this.$refs.inputreal.value = this.value
+                    var self = this;
+                    setTimeout(function() {
+                        self.$refs.input.blur()
+                        self.$refs.inputreal.focus()
+                        self.$refs.inputreal.select()
+                    }, 100)
+                },
+                blur: function(event) {
+                    this.input = false
+                },
+                findLeft: function(val) {
+                    if (!this.scales) {
+                        return {i:0, x:this.min}
+                    }
+                    for (var i=0; i<this.scales.length; i++) {
+                        if (val >= this.scales[i] && val < this.scales[i + 1]) {
+                            return {i:i, x:this.scales[i]}
+                        }
+                    }
+                    return {i:this.scales.length - 2, x:this.scales[this.scales.length - 2]}
+                },
+                findRight: function(val) {
+                    if (!this.scales) {
+                        return {i:0, x:this.max}
+                    }
+                    for (var i=0; i<this.scales.length; i++) {
+                        if (val >= this.scales[i] && val < this.scales[i + 1]) {
+                            return {i:i, x:this.scales[i+1]}
+                        }
+                    }
+                    return {i:this.scales.length - 2, x:this.scales[this.scales.length - 1]}
+                }
+            },
+            watch: {
+                window: function() {
+                    var rect = this.$refs.input.getBoundingClientRect()
+                    this.handlemin = rect.left - 10
+                    this.handlemax = rect.right - 10
+                    this.handleoffset = rect.left
+                },
+                mouse: function() {
+                    if (this.handle) {
+                        if (this.mouse.down) {
+                            var x = this.mouse.x - this.grabpos
+
+                            if (x < this.handlemin) {
+                                x = this.handlemin
+                            }
+                            if (x > this.handlemax) {
+                                x = this.handlemax
+                            }
+
+                            this.handlex = x - this.handleoffset
+
+                            var index = (this.handlex + 10) / ((this.handlemax - this.handlemin) / (this.scales.length - 1)) ^ 0
+                            var leftside = (this.handlemax - this.handlemin) / (this.scales.length - 1) * index 
+                            var rightside = (this.handlemax - this.handlemin) / (this.scales.length - 1) * (index + 1)
+                            var left = this.scales[index]
+                            var right = this.scales[index + 1]
+
+                            var prec = this.precision || 1
+                            var value = ((right - left) / (rightside - leftside) * ((this.handlex - leftside) + 10) / prec ^ 0) * prec + left
+                            
+                            for (var i=0; i<this.scales.length; i++) {
+                                var d = (right - left) / 15
+                                if (value - left < d) {
+                                    value = left
+                                }
+                                if (right - value < d) {
+                                    value = right
+                                }
+                            }
+
+                            this.$emit('changed', {'value': value})
+                        }
+                        else {
+                            this.handle = false
+                        }
+                    }
+                }
+            },
+            template: 
+            `
+    <div class="vue-pc-calc-field">
+        <div class="vue-pc-field-title">{{title}}</div>
+        <div class="vue-pc-field">
+            <input 
+                type="text" 
+                class="vue-pc-input vue-pc-input-focus"
+                @change="changed"
+                @blur="blur"
+                ref="inputreal"
+                :style="{'display': input ? 'inline-block' : 'none'}"></input>
+            <input 
+                type="text" 
+                class="vue-pc-input"
+                @change="changed"
+                @focus="focus"
+                :value="formatted"
+                ref="input"
+                :style="{'display': input ? 'none' : 'inline-block'}"></input>
+            <div class="vue-pc-fill-bar">
+                <div class="vue-pc-handle"
+                @mousedown="handleGrabbed"
+                @touchstart="handleGrabbed"
+                ref="handle"
+                :style="{left: (handlePosition) + 'px', 'transition': handle ? 'none' : 'left 0.4s ease-out'}">
+                    <div class="vue-pc-handle-ball"></div>
+                </div>
+                <div class="vue-pc-fill"
+                :style="{width: (fillWidth + 5) + 'px', 'transition': handle ? 'none' : 'width 0.4s ease-out'}"></div>
+            </div>
+        </div>
+        <div class="vue-pc-field-milestones">
+            <div 
+            v-for="(item, index) in milestones"
+            class="vue-pc-field-milestone" 
+            :style="{left: index === 0 ? 0 : index === milestones.length -1 ? 'none' : (100 / (milestones.length - 1) * index * 0.9) + '%', right: index === 'none' ? 0 : index === milestones.length -1 ? 0 : 'none'}">
+                {{item}}
+            </div>
+        </div>
+    </div>`
+        })
+
+        var VueProfitCalculator = new Vue({
+            el: "#vue-profit-calculator",
+            data: {
+                money: 10000,
+                minMoney: 10000,
+                maxMoney: 1000000,
+                period: 12,
+                minPeriod: 3,
+                maxPeriod: 360,
+                mousex: 0,
+                mousey: 0,
+                mousedown: 0,
+                windowWidth: 0,
+                interest: 0.15,
+                stopUpdates: false
+            },
+            computed: {
+                mouse: function() {
+                    return {x: this.mousex, y: this.mousey, down: this.mousedown}
+                },
+                moneyAfterSixMonths: function() {
+                    return this.compoundInterest(this.money, this.period, this.interest) ^ 0
+                },
+                sixMonthsPercent: function() {                    
+                    var calculatedMoney = this.compoundInterest(this.money, Math.min(6, this.period), this.interest)
+                    var result = ((calculatedMoney / this.money) - 1) * 100
+                    return this.formatPercents(result, 1000)
+                },
+                averagePercent: function() {    
+                    var is = []
+                    var period = this.period > 12 ? this.period : 12
+                    for (var i=12; i<=period; i+=12) {
+                        var calculatedMoney = this.compoundInterest(this.money, i, this.interest)
+                        is.push(((calculatedMoney / this.money) - 1) * 100)
+                    }
+                    var yi = is.reduce((s, c) => s+c, 0) / is.length
+                    /*var ism = []
+                    for (var i=1; i<=this.period%12; i+=1) {
+                        var moneyAtStart = this.compoundInterest(this.money, this.period / 12 ^ 0, this.interest)
+                        var moneyFromStart = this.compoundInterest(this.money, this.period, this.interest) - moneyAtStart
+                        ism.push(((calculatedMoney / this.money) - 1) * 100)
+                    }
+                    var  mi = ism.reduce((s, c) => s+c, 0) / ism.length || 0*/
+                    return this.formatPercents(yi, 1000)
+                },
+                fullPercent: function() {
+                    var calculatedMoney = this.compoundInterest(this.money, this.period, this.interest)
+                    var result = (calculatedMoney / this.money) * 100
+                    return this.formatPercents(result, 1000)
+                },
+                bigTileTitle: function() {
+                    var mm = {10: 'месяцев', 11: 'месяцев', 12: 'месяцев', 13: 'месяцев', 14: 'месяцев', 15: 'месяцев', 16: 'месяцев', 17: 'месяцев', 18: 'месяцев', 19: 'месяцев'}                    
+                    var m = {0: 'месяцев', 1: 'месяц', 2: 'месяца', 3: 'месяца', 4: 'месяца', 5: 'месяцев', 6: 'месяцев', 7: 'месяцев', 8: 'месяцев', 9: 'месяцев'}
+
+                    var ms = 'месяцев'
+                    if (mm[this.period % 100]) {
+                        ms = mm[this.period % 100]
+                    } 
+                    else if (m[this.period % 10]) {
+                        ms = m[this.period % 10]
+                    }
+
+                    return 'Стоимость портфеля через ' + this.period + ' ' + ms
+                }
+            },
+            methods: {
+                compoundInterest: function(money, period, interest) {
+                    return money * Math.pow((1 + (interest / 12)), period)
+                },
+                formatPercents(value, treshold) {
+                    return value > treshold ? (value ^ 0) : (value ^ 0).toString() + '.' +  (value % 1 * 10 ^ 0 ^ 0)
+                },
+                moneyChanged: function(event) {
+                    var value = event.value
+                    if (value < this.minMoney) {
+                        value = this.minMoney
+                    }
+                    if (value > this.maxMoney) {
+                        value = this.maxMoney
+                    }
+                    this.money = value
+                },
+                periodChanged: function(event) {
+
+                    var value = event.value
+                    if (value < this.minPeriod) {
+                        value = this.minPeriod
+                    }
+                    if (value > this.maxPeriod) {
+                        value = this.maxPeriod
+                    }
+                    this.period = value
+                },
+                mouseMove: function(event) {
+                    if (!this.stopUpdates) {
+                        this.mousex = event.clientX || (event.touches ? event.touches[0].screenX : this.mousex)
+                        this.mousey = event.clientY
+                    }
+                },
+                mouseDown: function(event) {
+                    this.mousedown = true
+                },
+                mouseUp: function(event) {
+                    this.mousedown = false
+                },
+            },
+            created: function() {
+                var self = this;
+                $(document).ready(function() {
+                    self.windowWidth = window.innerWidth
+                })
+                $(window).on('resize', function() {
+                    self.windowWidth = window.innerWidth
+                })
+            }
+        })
+    </script>
+
+</body>
+</html>
