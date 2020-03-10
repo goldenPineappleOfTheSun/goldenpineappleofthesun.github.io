@@ -394,14 +394,14 @@
                 <div class="vue-profit-money-title">Ожидаемый доход, %</div>
                 <div class="vue-profit-money-left-tile">
                     <profit-calc-tile
-                        title="доходность за 6 месяцев"
-                        :value="sixMonthsPercent"
+                        title="доходность"
+                        :value="15"
                         units="%"/>
                 </div>
                 <div class="vue-profit-money-middle-tile">
                     <profit-calc-tile
-                        title="среднегодовая за период"
-                        :value="averagePercent"
+                        title="доходность реинвестирования"
+                        :value="reinvestInterest"
                         units="%"/>
                 </div>
                 <div class="vue-profit-money-right-tile">
@@ -617,9 +617,11 @@
             el: "#vue-profit-calculator",
             data: {
                 money: 10000,
+                moneyInterpolation: 10000,
                 minMoney: 10000,
                 maxMoney: 1000000,
                 period: 12,
+                periodInterpolation: 12,
                 minPeriod: 3,
                 maxPeriod: 360,
                 mousex: 0,
@@ -634,33 +636,36 @@
                     return {x: this.mousex, y: this.mousey, down: this.mousedown}
                 },
                 moneyAfterSixMonths: function() {
-                    return this.compoundInterest(this.money, this.period, this.interest) ^ 0
+                    return this.compoundInterest(this.moneyInterpolation, this.periodInterpolation, this.interest) ^ 0
                 },
-                sixMonthsPercent: function() {                    
-                    var calculatedMoney = this.compoundInterest(this.money, Math.min(6, this.period), this.interest)
-                    var result = ((calculatedMoney / this.money) - 1) * 100
+                /*sixMonthsPercent: function() {                    
+                    var calculatedMoney = this.compoundInterest(this.moneyInterpolation, Math.min(6, this.periodInterpolation), this.interest)
+                    var result = ((calculatedMoney / this.moneyInterpolation) - 1) * 100
                     return this.formatPercents(result, 1000)
-                },
-                averagePercent: function() {    
+                },*/
+                /*averagePercent: function() {    
                     var is = []
-                    var period = this.period > 12 ? this.period : 12
-                    for (var i=12; i<=period; i+=12) {
-                        var calculatedMoney = this.compoundInterest(this.money, i, this.interest)
-                        is.push(((calculatedMoney / this.money) - 1) * 100)
+                    var periodInterpolation = this.periodInterpolation > 12 ? this.periodInterpolation : 12
+                    for (var i=12; i<=periodInterpolation; i+=12) {
+                        var calculatedMoney = this.compoundInterest(this.moneyInterpolation, i, this.interest)
+                        is.push(((calculatedMoney / this.moneyInterpolation) - 1) * 100)
                     }
                     var yi = is.reduce((s, c) => s+c, 0) / is.length
-                    /*var ism = []
-                    for (var i=1; i<=this.period%12; i+=1) {
-                        var moneyAtStart = this.compoundInterest(this.money, this.period / 12 ^ 0, this.interest)
-                        var moneyFromStart = this.compoundInterest(this.money, this.period, this.interest) - moneyAtStart
-                        ism.push(((calculatedMoney / this.money) - 1) * 100)
-                    }
-                    var  mi = ism.reduce((s, c) => s+c, 0) / ism.length || 0*/
+                   
                     return this.formatPercents(yi, 1000)
+                },*/
+                reinvestInterest: function() {
+                    var calculatedMoney = this.compoundInterest(this.moneyInterpolation, this.periodInterpolation, this.interest)
+                    var fullInterest = (calculatedMoney / this.moneyInterpolation) * 100
+                    var linearInterest = (this.interest / 12) * this.period * 100 + 100
+                    var result = fullInterest - linearInterest
+                    if (result < 0)
+                        result = 0
+                    return this.formatPercents(result, 1000)
                 },
                 fullPercent: function() {
-                    var calculatedMoney = this.compoundInterest(this.money, this.period, this.interest)
-                    var result = (calculatedMoney / this.money) * 100
+                    var calculatedMoney = this.compoundInterest(this.moneyInterpolation, this.periodInterpolation, this.interest)
+                    var result = (calculatedMoney / this.moneyInterpolation) * 100
                     return this.formatPercents(result, 1000)
                 },
                 bigTileTitle: function() {
@@ -668,11 +673,11 @@
                     var m = {0: 'месяцев', 1: 'месяц', 2: 'месяца', 3: 'месяца', 4: 'месяца', 5: 'месяцев', 6: 'месяцев', 7: 'месяцев', 8: 'месяцев', 9: 'месяцев'}
 
                     var ms = 'месяцев'
-                    if (mm[this.period % 100]) {
-                        ms = mm[this.period % 100]
+                    if (mm[this.periodInterpolation % 100]) {
+                        ms = mm[this.periodInterpolation % 100]
                     } 
-                    else if (m[this.period % 10]) {
-                        ms = m[this.period % 10]
+                    else if (m[this.periodInterpolation % 10]) {
+                        ms = m[this.periodInterpolation % 10]
                     }
 
                     return 'Стоимость портфеля через ' + this.period + ' ' + ms
@@ -727,6 +732,22 @@
                 $(window).on('resize', function() {
                     self.windowWidth = window.innerWidth
                 })
+                setInterval(function() {                    
+                    self.moneyInterpolation = Math.abs(self.money - self.moneyInterpolation) < 1
+                        ? self.money
+                        : Math.abs(self.money - self.moneyInterpolation) < 3
+                        ? self.moneyInterpolation + (self.money - self.moneyInterpolation) * 0.05
+                        : Math.abs(self.money - self.moneyInterpolation) < 100
+                        ? self.moneyInterpolation + (self.money - self.moneyInterpolation) * 0.2
+                        : self.moneyInterpolation + (self.money - self.moneyInterpolation) * 0.9
+                    self.periodInterpolation = Math.abs(self.period - self.moneyInterpolation) < 1.9
+                        ? self.period
+                        : Math.abs(self.period - self.periodInterpolation) < 2
+                        ? self.periodInterpolation + (self.period - self.periodInterpolation) * 0.1
+                        : Math.abs(self.period - self.periodInterpolation) < 12
+                        ? self.periodInterpolation + (self.period - self.periodInterpolation) * 0.9
+                        : self.periodInterpolation + (self.period - self.periodInterpolation) * 0.97
+                }, 60)
             }
         })
     </script>
