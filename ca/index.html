@@ -400,7 +400,7 @@
             .vue-profit-money-left-tile, 
             .vue-profit-money-middle-tile, 
             .vue-profit-money-right-tile {
-                width: 30%;
+                width: 29%;
             }
             .vue-profit-money-left-tile {
                 margin-right: 5.9%;
@@ -409,6 +409,7 @@
             }
             .vue-profit-money-right-tile {
                 margin-left: 5.9%;
+                float: right;
             }
         }
     </style>
@@ -477,22 +478,22 @@
                             :value="moneyAfterSixMonths"
                             units="$"/>
                     </div>
-                    <div class="vue-profit-money-title">Ожидаемый доход, %</div>
+                    <div class="vue-profit-money-title">Доходность, %</div>
                     <div class="vue-profit-money-left-tile">
                         <profit-calc-tile
-                            title="доходность"
+                            title="Среднегодовая"
                             :value="15"
                             units="%"/>
                     </div>
                     <div class="vue-profit-money-middle-tile">
                         <profit-calc-tile
-                            title="доходность реинвестирования"
+                            title="От реинвестирования"
                             :value="reinvestInterest"
                             units="%"/>
                     </div>
                     <div class="vue-profit-money-right-tile">
                         <profit-calc-tile
-                            title="накопленная за период"
+                            title="Накопленная за период"
                             :value="fullPercent"
                             units="%"/>
                     </div>
