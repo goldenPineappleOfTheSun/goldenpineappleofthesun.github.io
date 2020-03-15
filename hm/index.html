@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        #vue-histogram {
+            color: #373334;
+            font-family: 'Roboto',Arial,sans-serif;
+            overflow: hidden;
+            background: #fdfdfd;
+        }
+        .vue-histogram-leftside {
+            position: relative;
+            float: left;
+            width: 15%;
+            max-width: 10rem;
+            height: 500px;
+        }
+        .vue-histogram-rightside {
+            position: relative;
+            float: left;
+            width: 85%;
+            height: 600px;
+        }
+        .vue-histogram-percent-sign {
+            position: absolute;
+            left: 2%;
+            top: 50%;
+            transform: translate(0, -50%);
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .vue-histogram-measures {
+            display: table;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 0 20px 100px 0;
+        }
+        .vue-histogram-measure {
+            width: 100%;
+            display: table-row;
+            font-size: 20px;
+        }
+        .vue-histogram-measure-cell {
+            width: 100%;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: right;
+        }
+
+        .vue-histogram-background {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .vue-histogram-ruler {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            position: relative;
+            left: 0;
+            width: 100%;
+            border-bottom: 1px dashed #d8d8d8;
+        }
+        .vue-histogram-columns {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .vue-histogram-column {
+            position: relative;
+            float: left;
+            width: 8.32%;
+            height: 100%;
+        }
+        .vue-histogram-column-block {
+            position: absolute; 
+            width: 10px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+    <script>
+        PROFITDATA = {
+            "2020": [30, 20, 10, 0, -5, 15, 30, 20, 10, 0, -5, 15]
+        }
+    </script>
+
+    <div id="vue-histogram">
+        <div class="vue-histogram-leftside">
+            <div class="vue-histogram-percent-sign">%</div>
+            <div class="vue-histogram-measures">
+                <div 
+                class="vue-histogram-measure"
+                v-for="item in measures" 
+                v-key="item"
+                :style="{height: measuresHeight + 'px'}">
+                    <div class="vue-histogram-measure-cell">
+                        {{item}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="vue-histogram-rightside">
+            <div class="vue-histogram-background"
+            :style="{top: (-measuresHeight / 2) + 'px'}">
+                <div
+                class="vue-histogram-ruler"
+                v-for="item in measures"
+                v-key="item"
+                :style="{height: measuresHeight + 'px'}">
+                </div>
+            </div>
+            <div class="vue-histogram-columns">
+                <div 
+                class="vue-histogram-column"
+                v-for="(item, index) in columns"
+                v-key="index">
+                    <div class="vue-histogram-column-text">
+                        {{item.value}}
+                    </div>
+                    <div 
+                        class="vue-histogram-column-block"
+                        :style="{top: item.top + 'px', height: item.height + 'px'}">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>        
+        var VueHistogram = new Vue({
+            el: '#vue-histogram',
+            data: {
+                minValue: -10,
+                maxValue: 35,
+                interval: 5,
+                plotHeight: 400 // должно совпадать с высотой графика
+            },
+            computed: {
+                measures: function() {
+                    var result = [];
+                    var min = Math.floor(this.minValue / 5) * 5
+                    var max = Math.ceil(this.maxValue / 5) * 5
+                    for (var i=min; i<=max; i+=this.interval) {
+                        result.push(i);
+                    }
+                    return result.reverse()
+                },
+                measuresHeight: function() {
+                    return this.getMeasuresHeight();
+                },
+                columns: function() {
+                    var height = this.getMeasuresHeight()
+                    var data = PROFITDATA["2020"]
+                    var origin = this.getOrigin()
+                    var ratio = this.getPlotNumsRatio()
+                    return data.map(x => { return {
+                        value: x,
+                        top: x > 0 ? ratio * (this.maxValue - x) + height * 0.5 : origin + height * 0.5,
+                        height: x > 0 ? (ratio * x) : -(ratio * x)
+                    }})
+                }
+               /* measuresPositions: function() {
+                    var result = [];
+                    for (var i=0; i< this.measures; i++) {
+                        result += this.measures[i] * this.measureHeight
+                    }
+                    return result
+                }*/
+            },
+            methods: {
+                getMeasuresHeight: function() {
+                    return this.plotHeight / (this.maxValue - this.minValue) * this.interval
+                },
+                getOrigin: function() {
+                    return this.getPlotNumsRatio() * (this.maxValue - 0)
+                },
+                getPlotNumsRatio: function() {
+                    return this.plotHeight / (this.maxValue - this.minValue)
+                }
+            }
+        })
+    </script>
+
+</body>
+</html>
+
