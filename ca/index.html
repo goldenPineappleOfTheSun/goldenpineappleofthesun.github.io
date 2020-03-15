@@ -48,7 +48,7 @@
         .vue-pc-input {
             box-sizing: border-box;
             width: 100%;
-            padding: 7px 7px 7px 20px;
+            padding: 7px 7px 7px 16px;
             border-radius: 3px;
             color: #373334;
             font-family: 'Roboto', Arial, sans-serif;
@@ -98,10 +98,10 @@
         }
         .vue-pc-handle-ball {
             position: absolute;
-            top: 0px;
+            top: -3px;
             left: 40px;
-            width: 1em;
-            height: 1em;
+            width: 25px;
+            height: 25px;
             border-radius: 50%;
             background-color: #d11e29;
         }
@@ -119,8 +119,6 @@
         }
         .vue-profit-calculator-tab {
             position: relative;
-            width: 90%;
-            left: 5%;
             box-sizing: border-box;
             height: 55px;
             text-align: center;
@@ -169,10 +167,10 @@
             margin-bottom: 15px;
         }
         .vue-pc-calc-tile {
-            border: 1px solid #f3ece4;
             border: 1px solid #807e7d;
-            border-radius: 10px;
-            padding: 20px;
+            border-radius: 10px;    
+            height: 80px;
+            padding: 15px;
             overflow: hidden;
         }
         .vue-pc-calc-tile-value {            
@@ -181,13 +179,17 @@
             user-select: text;
         }
         .vue-pc-calc-tile-title {    
-            color: #f3ece4;
+            color: #f3ece4;    
             font-size: 14px;
             user-select: text;
         }
         .vue-profit-money-big-tile {
-            margin-bottom: 30px;
+            margin-bottom: 27px;
             white-space: nowrap;
+        }
+        .vue-profit-money-big-tile
+        .vue-pc-calc-tile-title {
+            margin: 0;
         }
         .vue-profit-money-left-tile, 
         .vue-profit-money-middle-tile, 
@@ -196,7 +198,7 @@
             box-sizing: border-box;
             width: 100%;
             margin-right: -1%;
-            padding: 5px;
+            margin-bottom: 40px;
         }
         .vue-profit-money-left-tile .vue-pc-calc-tile-title, 
         .vue-profit-money-middle-tile .vue-pc-calc-tile-title, 
@@ -223,24 +225,90 @@
             transform: translateX(0);
         }
 
-        @media (min-width: 400px)
+        .vue-profit-consultation-btn {
+            position: relative;
+            box-sizing: border-box;
+            width: 240px;
+            height: 55px;
+            background-color: #d11e29;
+            background-position: center center;
+            border-width: 1px;
+            border-radius: 7px;
+            border-color: transparent;
+            border-style: solid;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            color: #f3ece4;
+            text-align: center;
+            padding: 14px 0;
+            z-index: 48;
+            cursor: pointer;
+        }
+
+        .vue-profit-consultation-btn:hover {
+            background-color: #e8dccc;
+        }
+
+        .vue-profit-consultation-btn:hover a{
+            color: #000000;
+        }
+
+        .vue-profit-consultation-btn a {
+            font-size: 16px;
+            font-family: 'Roboto',Arial,sans-serif;
+            text-decoration: none;
+            font-size: 14px;
+            color: #f3ece4;
+            line-height: 1.55;
+            font-weight: 400;
+        }
+
+        @media (min-width: 530px)
         {
             .vue-profit-calculator-wrapper {
                 max-width: 600px;
             }
             .vue-profit-calculator-controls {
                 padding: 0;
+            }          
+            .vue-pc-handle-ball {
+                position: absolute;
+                top: 0px;
+                left: 40px;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background-color: #d11e29;
             }
-            .vue-profit-money-left-tile, 
+           /* .vue-profit-money-left-tile, 
             .vue-profit-money-middle-tile, 
             .vue-profit-money-right-tile {
                 display: inline-block;
                 box-sizing: border-box;
                 width: 33%;
                 margin-right: -1%;
-                padding: 5px;
+            }*/ 
+            .vue-profit-money-left-tile, 
+            .vue-profit-money-middle-tile, 
+            .vue-profit-money-right-tile {
+                width: 32%;
             }
-        }        
+            .vue-profit-money-left-tile {
+                margin-right: 2%;
+            }
+            .vue-profit-money-middle-tile {
+                position: relative;
+                left: -4px;
+            }
+            .vue-profit-money-right-tile {
+                position: relative;
+                left: -4px;
+                margin-left: 2%;
+            }
+            .vue-pc-calc-tile-title {    
+                margin-left: -10px;
+                margin-right: -10px; 
+            }  
+        }  
 
         @media (min-width: 600px) {
             .vue-profit-calculator-wrapper {
@@ -283,7 +351,7 @@
                 text-align: center;
             }
             .vue-profit-money-title {
-                font-size: 18px;
+                font-size: 16px;
                 margin-bottom: 15px;
             }
             .vue-pc-calc-tile {
@@ -296,7 +364,11 @@
             }
             .vue-pc-calc-tile-title {    
                 font-size: 14px;
-            }            
+            }     
+            .vue-pc-calc-tile-title {    
+                margin-left: 0px;
+                margin-right: 0px; 
+            }       
             .vue-profit-money-left-tile .vue-pc-calc-tile-title, 
             .vue-profit-money-middle-tile .vue-pc-calc-tile-title, 
             .vue-profit-money-right-tile .vue-pc-calc-tile-title {
@@ -306,7 +378,8 @@
             .vue-profit-money-left-tile .vue-pc-calc-tile, 
             .vue-profit-money-middle-tile .vue-pc-calc-tile, 
             .vue-profit-money-right-tile .vue-pc-calc-tile {
-                padding: 20px;
+                height: 80px;
+                padding: 18px 16px 22px 16px;
                 height: 80px;
             }
         }
@@ -320,7 +393,7 @@
             .vue-profit-money-right-tile .vue-pc-calc-tile-title {
                 font-size: 14px;
             }
-            .vue-profit-money-left-tile, 
+            /*.vue-profit-money-left-tile, 
             .vue-profit-money-middle-tile, 
             .vue-profit-money-right-tile {
                 width: 32%;
@@ -332,7 +405,7 @@
             }
             .vue-profit-money-right-tile {
                 margin-left: 3%;
-            }
+            }*/
             .vue-profit-money-left-tile, 
             .vue-profit-money-middle-tile, 
             .vue-profit-money-right-tile {
@@ -362,11 +435,14 @@
             .vue-profit-calculator-controls {
                 padding: 0 25px 0 0;
             }
+            .vue-pc-calc-tile {
+                padding: 18px 16px 22px 16px;
+            }
             .vue-pc-field-title {
                 margin-bottom: 12px;
             }
             .vue-profit-money-title {
-                margin-bottom: 6px;
+                margin-bottom: 12px;
             }
             .vue-profit-calculator-prognosis {
                 padding: 0 0 0 25px;
@@ -434,7 +510,7 @@
             <div class="vue-profit-calculator-controls">
                 <div class="vue-profit-calculator-field">
                     <profit-calc-field 
-                    title="Сумма инвестиций, S"
+                    title="Сумма инвестиций, $"
                     :min="minMoney"
                     :max="maxMoney"
                     :milestones="['10 000 $', '100 000 $', '1 000 000 $']"
@@ -496,6 +572,10 @@
                             title="Накопленная за период"
                             :value="fullPercent"
                             units="%"/>
+                    </div>
+
+                    <div class="vue-profit-consultation-btn">
+                        <a class="tn-atom" href="#8">Получить консультацию</a>
                     </div>
                 </div>
             </div> 
