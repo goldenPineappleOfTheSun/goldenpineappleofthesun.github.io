@@ -10,7 +10,7 @@
             margin: 0;
         }
         #vue-profit-calculator {
-            padding: 10px 30px 30px 30px;
+            padding: 10px 10px 30px 10px;
             background: #373334;
             font-family: 'Roboto',Arial,sans-serif;
             color: #f3ece4;
@@ -20,6 +20,17 @@
             overflow: hidden;
             min-width: 300px;
         }
+
+        .vue-profit-calculator-wrapper {
+            position: relative;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        .vue-profit-calculator-controls {
+            padding: 0 25px;
+        }
+
         .vue-profit-calculator-header {
             font-family: 'Oswald', Arial, sans-serif;
             font-size: 29px;
@@ -37,7 +48,7 @@
         .vue-pc-input {
             box-sizing: border-box;
             width: 100%;
-            padding: 7px 7px 7px 20px;
+            padding: 7px 7px 7px 16px;
             border-radius: 3px;
             color: #373334;
             font-family: 'Roboto', Arial, sans-serif;
@@ -83,13 +94,14 @@
             margin-left: -40px;
             background-color: rgba(255, 0, 0, 0.001);
             z-index: 1;
+            cursor: grab;
         }
         .vue-pc-handle-ball {
             position: absolute;
-            top: 0px;
+            top: -3px;
             left: 40px;
-            width: 1em;
-            height: 1em;
+            width: 25px;
+            height: 25px;
             border-radius: 50%;
             background-color: #d11e29;
         }
@@ -107,8 +119,6 @@
         }
         .vue-profit-calculator-tab {
             position: relative;
-            width: 90%;
-            left: 5%;
             box-sizing: border-box;
             height: 55px;
             text-align: center;
@@ -157,10 +167,10 @@
             margin-bottom: 15px;
         }
         .vue-pc-calc-tile {
-            border: 1px solid #f3ece4;
             border: 1px solid #807e7d;
-            border-radius: 10px;
-            padding: 20px;
+            border-radius: 10px;    
+            height: 80px;
+            padding: 15px;
             overflow: hidden;
         }
         .vue-pc-calc-tile-value {            
@@ -169,38 +179,143 @@
             user-select: text;
         }
         .vue-pc-calc-tile-title {    
-            color: #f3ece4;
+            color: #f3ece4;    
             font-size: 14px;
             user-select: text;
         }
         .vue-profit-money-big-tile {
-            margin-bottom: 30px;
+            margin-bottom: 42px;
             white-space: nowrap;
+        }
+        .vue-profit-money-big-tile
+        .vue-pc-calc-tile-title {
+            margin: 0;
         }
         .vue-profit-money-left-tile, 
         .vue-profit-money-middle-tile, 
         .vue-profit-money-right-tile {
             display: inline-block;
             box-sizing: border-box;
-            width: 33%;
+            width: 100%;
             margin-right: -1%;
-            padding: 5px;
+            margin-bottom: 40px;
         }
         .vue-profit-money-left-tile .vue-pc-calc-tile-title, 
         .vue-profit-money-middle-tile .vue-pc-calc-tile-title, 
         .vue-profit-money-right-tile .vue-pc-calc-tile-title {
-            font-size: 12px;
+            font-size: 14px;
+            word-break: break-word;
         }
         .vue-profit-money-left-tile .vue-pc-calc-tile, 
         .vue-profit-money-middle-tile .vue-pc-calc-tile, 
         .vue-profit-money-right-tile .vue-pc-calc-tile {
-            padding: 5px;
+            padding: 15px;
             height: 80px;
         }
+        .vue-pc-field-milestone {
+            font-size: 16px;
+            transform: translateX(-50%);
+        }
+        .vue-pc-field-milestone:first-child {
+            font-size: 16px;
+            transform: translateX(0);
+        }
+        .vue-pc-field-milestone:last-child {
+            font-size: 16px;
+            transform: translateX(0);
+        }
+
+        .vue-profit-consultation-btn {
+            position: relative;
+            box-sizing: border-box;
+            width: 240px;
+            height: 55px;
+            background-color: #d11e29;
+            background-position: center center;
+            border-width: 1px;
+            border-radius: 7px;
+            border-color: transparent;
+            border-style: solid;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            color: #f3ece4;
+            text-align: center;
+            padding: 14px 0;
+            z-index: 48;
+            cursor: pointer;
+        }
+
+        .vue-profit-consultation-btn:hover {
+            background-color: #e8dccc;
+        }
+
+        .vue-profit-consultation-btn:hover a{
+            color: #000000;
+        }
+
+        .vue-profit-consultation-btn a {
+            font-size: 16px;
+            font-family: 'Roboto',Arial,sans-serif;
+            text-decoration: none;
+            font-size: 14px;
+            color: #f3ece4;
+            line-height: 1.55;
+            font-weight: 400;
+        }
+
+        @media (min-width: 530px)
+        {
+            .vue-profit-calculator-wrapper {
+                max-width: 600px;
+            }
+            .vue-profit-calculator-controls {
+                padding: 0;
+            }          
+            .vue-pc-handle-ball {
+                position: absolute;
+                top: 0px;
+                left: 40px;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background-color: #d11e29;
+            }
+           /* .vue-profit-money-left-tile, 
+            .vue-profit-money-middle-tile, 
+            .vue-profit-money-right-tile {
+                display: inline-block;
+                box-sizing: border-box;
+                width: 33%;
+                margin-right: -1%;
+            }*/ 
+            .vue-profit-money-left-tile, 
+            .vue-profit-money-middle-tile, 
+            .vue-profit-money-right-tile {
+                width: 32%;
+            }
+            .vue-profit-money-left-tile {
+                margin-right: 2%;
+            }
+            .vue-profit-money-middle-tile {
+                position: relative;
+                left: -4px;
+            }
+            .vue-profit-money-right-tile {
+                position: relative;
+                left: -4px;
+                margin-left: 2%;
+            }
+            .vue-pc-calc-tile-title {    
+                margin-left: -10px;
+                margin-right: -10px; 
+            }  
+        }  
 
         @media (min-width: 600px) {
+            .vue-profit-calculator-wrapper {
+                max-width: 580px;
+            }
             #vue-profit-calculator {
-                padding: 10px 70px 30px 70px;
+                padding: 10px 10px 30px 10px;
             }
             .vue-profit-calculator-header {
                 font-size: 42px;
@@ -212,9 +327,6 @@
                 padding: 20px 30px;
                 border-radius: 7px;
                 font-size: 28px;
-            }
-            .vue-pc-field-milestone {
-                font-size: 16px;
             }
             .vue-profit-calculator-tab {
                 float: left;
@@ -230,7 +342,7 @@
                 left: 0;
             }
             .vue-profit-calculator-prognosis {
-                padding: 0 40px 0 40px;
+                padding: 0;
             }
             .vue-profit-calculator-prognosis-header {
                 display: block;
@@ -239,7 +351,7 @@
                 text-align: center;
             }
             .vue-profit-money-title {
-                font-size: 18px;
+                font-size: 16px;
                 margin-bottom: 15px;
             }
             .vue-pc-calc-tile {
@@ -252,58 +364,88 @@
             }
             .vue-pc-calc-tile-title {    
                 font-size: 14px;
-            }            
+            }     
+            .vue-pc-calc-tile-title {    
+                margin-left: 0px;
+                margin-right: 0px; 
+            }       
             .vue-profit-money-left-tile .vue-pc-calc-tile-title, 
             .vue-profit-money-middle-tile .vue-pc-calc-tile-title, 
             .vue-profit-money-right-tile .vue-pc-calc-tile-title {
-                font-size: 12px;
+                font-size: 14px;
+                line-height: 1.1em;
             }
             .vue-profit-money-left-tile .vue-pc-calc-tile, 
             .vue-profit-money-middle-tile .vue-pc-calc-tile, 
             .vue-profit-money-right-tile .vue-pc-calc-tile {
-                padding: 20px;
                 height: 80px;
-            }
-            .vue-profit-money-left-tile, 
-            .vue-profit-money-middle-tile, 
-            .vue-profit-money-right-tile {
-                float: left;
-                width: 30%;
-                position: relative;
-                display: inline-block;
-                box-sizing: border-box;
-                padding: 5px;
-            }
-            .vue-profit-money-left-tile {
-                margin-right: 5.9%;
-            }
-            .vue-profit-money-middle-tile {
-            }
-            .vue-profit-money-right-tile {
-                margin-left: 5.9%;
+                padding: 18px 16px 6px 16px;
+                height: 80px;
             }
         }
 
-        @media (min-width: 600px) {            
+        @media (min-width: 900px) {   
+            .vue-profit-calculator-wrapper {
+                max-width: 880px;
+            }         
             .vue-profit-money-left-tile .vue-pc-calc-tile-title, 
             .vue-profit-money-middle-tile .vue-pc-calc-tile-title, 
             .vue-profit-money-right-tile .vue-pc-calc-tile-title {
                 font-size: 14px;
             }
+            /*.vue-profit-money-left-tile, 
+            .vue-profit-money-middle-tile, 
+            .vue-profit-money-right-tile {
+                width: 32%;
+            }
+            .vue-profit-money-left-tile {
+                margin-right: 2%;
+            }
+            .vue-profit-money-middle-tile {
+            }
+            .vue-profit-money-right-tile {
+                margin-left: 3%;
+            }*/
+            .vue-profit-money-left-tile, 
+            .vue-profit-money-middle-tile, 
+            .vue-profit-money-right-tile {
+                width: 32%;
+            }
+            .vue-profit-money-left-tile {
+                margin-right: 2%;
+            }
+            .vue-profit-money-middle-tile {
+                position: relative;
+                left: -4px;
+            }
+            .vue-profit-money-right-tile {
+                position: relative;
+                left: -4px;
+                margin-left: 2%;
+            }
         }
 
         @media (min-width: 1200px) {
+            #vue-profit-calculator {
+                padding: 10px 10px 30px 10px;
+            }
+            .vue-profit-calculator-wrapper {
+                max-width: 1180px;
+            }
             .vue-profit-calculator-controls {
-                padding: 0 60px 0 60px;
+                padding: 0 25px 0 0;
+            }
+            .vue-pc-calc-tile {
+                padding: 18px 16px 6px 16px;
             }
             .vue-pc-field-title {
                 margin-bottom: 12px;
             }
             .vue-profit-money-title {
-                margin-bottom: 6px;
+                margin-bottom: 12px;
             }
             .vue-profit-calculator-prognosis {
-                padding: 0 60px 0 60px;
+                padding: 0 0 0 25px;
             }
             .vue-profit-calculator-prognosis-header {
                 display: none;
@@ -326,6 +468,26 @@
                 width: 50%;
             }
         }
+        @media (min-width: 1500px)
+        {           
+            .vue-profit-calculator-wrapper {
+                max-width: 1480px;
+            } 
+            .vue-profit-money-left-tile, 
+            .vue-profit-money-middle-tile, 
+            .vue-profit-money-right-tile {
+                width: 29%;
+            }
+            .vue-profit-money-left-tile {
+                margin-right: 5.9%;
+            }
+            .vue-profit-money-middle-tile {
+            }
+            .vue-profit-money-right-tile {
+                margin-left: 5.9%;
+                float: right;
+            }
+        }
     </style>
 </head>
 <body>
@@ -342,75 +504,81 @@
     @touchstart="mouseDown"
     @mouseup="mouseUp"
     @touchend="mouseUp">
-        <div class="vue-profit-calculator-header">Калькулятор доходности</div>
-        <div class="vue-profit-calculator-prognosis-header-ontop">Прогноз ожидаемой доходности от инвестиций в Хедж-Фонд</div>
-        <div class="vue-profit-calculator-controls">
-            <div class="vue-profit-calculator-field">
-                <profit-calc-field 
-                title="Сумма инвестиций, S"
-                :min="minMoney"
-                :max="maxMoney"
-                :milestones="['10 000 $', '100 000 $', '1 000 000 $']"
-                @changed="moneyChanged"
-                units="$"
-                :mouse="mouse"
-                :window="windowWidth"
-                :value="money"
-                :precision="1000"
-                :scales="[10000, 100000, 1000000]"/>
-            </div>
-            <div class="vue-profit-calculator-field">
-                <profit-calc-field 
-                title="Период расчета"
-                :min="minPeriod"
-                :max="maxPeriod"
-                :milestones="['3 мес.', '1 год', '6 лет', '12 лет', '30 лет']"
-                @changed="periodChanged"
-                units="мес"
-                :mouse="mouse"
-                :window="windowWidth"
-                :value="period"
-                :scales="[3, 12, 72, 144, 360]"/>
-            </div>
-            <div class="vue-profit-calculator-tabs">
-                <div class="vue-profit-calculator-tab vue-profit-calculator-pf">
-                    Состав портфеля <span class="vue-icon-suitcase"></span>
+        <div class="vue-profit-calculator-wrapper">           
+            <div class="vue-profit-calculator-header">Калькулятор доходности</div>
+            <div class="vue-profit-calculator-prognosis-header-ontop">Прогноз ожидаемой доходности от инвестиций в Хедж-Фонд</div>
+            <div class="vue-profit-calculator-controls">
+                <div class="vue-profit-calculator-field">
+                    <profit-calc-field 
+                    title="Сумма инвестиций, $"
+                    :min="minMoney"
+                    :max="maxMoney"
+                    :milestones="['10 000 $', '100 000 $', '1 000 000 $']"
+                    @changed="moneyChanged"
+                    units="$"
+                    :mouse="mouse"
+                    :window="windowWidth"
+                    :value="money"
+                    :precision="1000"
+                    :scales="[10000, 100000, 1000000]"/>
                 </div>
-                <div class="vue-profit-calculator-tab vue-profit-calculator-hgf">
-                    График доходности хэдж-фонда 
+                <div class="vue-profit-calculator-field">
+                    <profit-calc-field 
+                    title="Период расчета"
+                    :min="minPeriod"
+                    :max="maxPeriod"
+                    :milestones="['3 мес.', '1 год', '6 лет', '12 лет', '30 лет']"
+                    @changed="periodChanged"
+                    units="мес"
+                    :mouse="mouse"
+                    :window="windowWidth"
+                    :value="period"
+                    :scales="[3, 12, 72, 144, 360]"/>
                 </div>
-            </div>
-        </div>
-        <div class="vue-profit-calculator-prognosis">
-            <div class="vue-profit-calculator-prognosis-header">Прогноз ожидаемой доходности от инвестиций в Хедж-Фонд</div>
-            <div class="vue-profit-money">
-                <div class="vue-profit-money-title">Ожидаемый доход, $</div>
-                <div class="vue-profit-money-big-tile">
-                    <profit-calc-tile
-                        :title="bigTileTitle"
-                        :value="moneyAfterSixMonths"
-                        units="$"/>
-                </div>
-                <div class="vue-profit-money-title">Ожидаемый доход, %</div>
-                <div class="vue-profit-money-left-tile">
-                    <profit-calc-tile
-                        title="доходность за 6 месяцев"
-                        :value="sixMonthsPercent"
-                        units="%"/>
-                </div>
-                <div class="vue-profit-money-middle-tile">
-                    <profit-calc-tile
-                        title="среднегодовая за период"
-                        :value="averagePercent"
-                        units="%"/>
-                </div>
-                <div class="vue-profit-money-right-tile">
-                    <profit-calc-tile
-                        title="накопленная за период"
-                        :value="fullPercent"
-                        units="%"/>
+                <div class="vue-profit-calculator-tabs">
+                    <div class="vue-profit-calculator-tab vue-profit-calculator-pf">
+                        Состав портфеля <span class="vue-icon-suitcase"></span>
+                    </div>
+                    <div class="vue-profit-calculator-tab vue-profit-calculator-hgf">
+                        График доходности хэдж-фонда 
+                    </div>
                 </div>
             </div>
+            <div class="vue-profit-calculator-prognosis">
+                <div class="vue-profit-calculator-prognosis-header">Прогноз ожидаемой доходности от инвестиций в Хедж-Фонд</div>
+                <div class="vue-profit-money">
+                    <div class="vue-profit-money-title">Ожидаемый доход, $</div>
+                    <div class="vue-profit-money-big-tile">
+                        <profit-calc-tile
+                            :title="bigTileTitle"
+                            :value="moneyAfterSixMonths"
+                            units="$"/>
+                    </div>
+                    <div class="vue-profit-money-title">Доходность, %</div>
+                    <div class="vue-profit-money-left-tile">
+                        <profit-calc-tile
+                            title="Среднегодовая"
+                            :value="15"
+                            units="%"/>
+                    </div>
+                    <div class="vue-profit-money-middle-tile">
+                        <profit-calc-tile
+                            title="От реинвестирования"
+                            :value="reinvestInterest"
+                            units="%"/>
+                    </div>
+                    <div class="vue-profit-money-right-tile">
+                        <profit-calc-tile
+                            title="Накопленная за период"
+                            :value="fullPercent"
+                            units="%"/>
+                    </div>
+
+                    <div class="vue-profit-consultation-btn">
+                        <a class="tn-atom" href="#8">Получить консультацию</a>
+                    </div>
+                </div>
+            </div> 
         </div>
     </div>
 
@@ -606,7 +774,7 @@
             <div 
             v-for="(item, index) in milestones"
             class="vue-pc-field-milestone" 
-            :style="{left: index === 0 ? 0 : index === milestones.length -1 ? 'none' : (100 / (milestones.length - 1) * index * 0.9) + '%', right: index === 'none' ? 0 : index === milestones.length -1 ? 0 : 'none'}">
+            :style="{left: index === 0 ? 0 : index === milestones.length -1 ? 'none' : (100 / (milestones.length - 1) * index) + '%', right: index === 'none' ? 0 : index === milestones.length -1 ? 0 : 'none'}">
                 {{item}}
             </div>
         </div>
@@ -617,9 +785,11 @@
             el: "#vue-profit-calculator",
             data: {
                 money: 10000,
+                moneyInterpolation: 10000,
                 minMoney: 10000,
                 maxMoney: 1000000,
                 period: 12,
+                periodInterpolation: 12,
                 minPeriod: 3,
                 maxPeriod: 360,
                 mousex: 0,
@@ -634,33 +804,36 @@
                     return {x: this.mousex, y: this.mousey, down: this.mousedown}
                 },
                 moneyAfterSixMonths: function() {
-                    return this.compoundInterest(this.money, this.period, this.interest) ^ 0
+                    return this.compoundInterest(this.moneyInterpolation, this.periodInterpolation, this.interest) ^ 0
                 },
-                sixMonthsPercent: function() {                    
-                    var calculatedMoney = this.compoundInterest(this.money, Math.min(6, this.period), this.interest)
-                    var result = ((calculatedMoney / this.money) - 1) * 100
+                /*sixMonthsPercent: function() {                    
+                    var calculatedMoney = this.compoundInterest(this.moneyInterpolation, Math.min(6, this.periodInterpolation), this.interest)
+                    var result = ((calculatedMoney / this.moneyInterpolation) - 1) * 100
                     return this.formatPercents(result, 1000)
-                },
-                averagePercent: function() {    
+                },*/
+                /*averagePercent: function() {    
                     var is = []
-                    var period = this.period > 12 ? this.period : 12
-                    for (var i=12; i<=period; i+=12) {
-                        var calculatedMoney = this.compoundInterest(this.money, i, this.interest)
-                        is.push(((calculatedMoney / this.money) - 1) * 100)
+                    var periodInterpolation = this.periodInterpolation > 12 ? this.periodInterpolation : 12
+                    for (var i=12; i<=periodInterpolation; i+=12) {
+                        var calculatedMoney = this.compoundInterest(this.moneyInterpolation, i, this.interest)
+                        is.push(((calculatedMoney / this.moneyInterpolation) - 1) * 100)
                     }
                     var yi = is.reduce((s, c) => s+c, 0) / is.length
-                    /*var ism = []
-                    for (var i=1; i<=this.period%12; i+=1) {
-                        var moneyAtStart = this.compoundInterest(this.money, this.period / 12 ^ 0, this.interest)
-                        var moneyFromStart = this.compoundInterest(this.money, this.period, this.interest) - moneyAtStart
-                        ism.push(((calculatedMoney / this.money) - 1) * 100)
-                    }
-                    var  mi = ism.reduce((s, c) => s+c, 0) / ism.length || 0*/
+                   
                     return this.formatPercents(yi, 1000)
+                },*/
+                reinvestInterest: function() {
+                    var calculatedMoney = this.compoundInterest(this.moneyInterpolation, this.periodInterpolation, this.interest)
+                    var fullInterest = (calculatedMoney / this.moneyInterpolation) * 100
+                    var linearInterest = (this.interest / 12) * this.period * 100 + 100
+                    var result = fullInterest - linearInterest
+                    if (result < 0)
+                        result = 0
+                    return this.formatPercents(result, 1000)
                 },
                 fullPercent: function() {
-                    var calculatedMoney = this.compoundInterest(this.money, this.period, this.interest)
-                    var result = (calculatedMoney / this.money) * 100
+                    var calculatedMoney = this.compoundInterest(this.moneyInterpolation, this.periodInterpolation, this.interest)
+                    var result = (calculatedMoney / this.moneyInterpolation) * 100
                     return this.formatPercents(result, 1000)
                 },
                 bigTileTitle: function() {
@@ -668,11 +841,11 @@
                     var m = {0: 'месяцев', 1: 'месяц', 2: 'месяца', 3: 'месяца', 4: 'месяца', 5: 'месяцев', 6: 'месяцев', 7: 'месяцев', 8: 'месяцев', 9: 'месяцев'}
 
                     var ms = 'месяцев'
-                    if (mm[this.period % 100]) {
-                        ms = mm[this.period % 100]
+                    if (mm[this.periodInterpolation % 100]) {
+                        ms = mm[this.periodInterpolation % 100]
                     } 
-                    else if (m[this.period % 10]) {
-                        ms = m[this.period % 10]
+                    else if (m[this.periodInterpolation % 10]) {
+                        ms = m[this.periodInterpolation % 10]
                     }
 
                     return 'Стоимость портфеля через ' + this.period + ' ' + ms
@@ -727,6 +900,22 @@
                 $(window).on('resize', function() {
                     self.windowWidth = window.innerWidth
                 })
+                setInterval(function() {                    
+                    self.moneyInterpolation = Math.abs(self.money - self.moneyInterpolation) < 1
+                        ? self.money
+                        : Math.abs(self.money - self.moneyInterpolation) < 3
+                        ? self.moneyInterpolation + (self.money - self.moneyInterpolation) * 0.05
+                        : Math.abs(self.money - self.moneyInterpolation) < 100
+                        ? self.moneyInterpolation + (self.money - self.moneyInterpolation) * 0.3
+                        : self.moneyInterpolation + (self.money - self.moneyInterpolation) * 0.95
+                    self.periodInterpolation = Math.abs(self.period - self.moneyInterpolation) < 1
+                        ? self.period
+                        : Math.abs(self.period - self.periodInterpolation) < 3
+                        ? self.periodInterpolation + (self.period - self.periodInterpolation) * 0.4
+                        : Math.abs(self.period - self.periodInterpolation) < 12
+                        ? self.periodInterpolation + (self.period - self.periodInterpolation) * 0.6
+                        : self.periodInterpolation + (self.period - self.periodInterpolation) * 0.9
+                }, 60)
             }
         })
     </script>
