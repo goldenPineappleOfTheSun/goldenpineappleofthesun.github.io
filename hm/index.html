@@ -30,11 +30,13 @@
         }
         .vue-histogram-percent-sign {
             position: absolute;
-            left: 2%;
+            margin-right: 30px;
+            right: 30%;
             top: 50%;
             transform: translate(0, -50%);
             font-size: 30px;
             font-weight: bold;
+            display: none;
         }
         .vue-histogram-measures {
             display: table;
@@ -72,10 +74,11 @@
             position: relative;
             left: 0;
             width: 100%;
-            border-bottom: 1px dashed #d8d8d8;
+            border-bottom: 1.1px dashed #d8d8d8;
         }
         .vue-histogram-columns {
             position: absolute;
+            box-sizing: border-box;
             left: 0;
             top: 0;
             width: 100%;
@@ -87,11 +90,143 @@
             float: left;
             width: 8.32%;
             height: 100%;
+            cursor: pointer;
         }
+        .vue-histogram-column:hover {
+            background: #dcdcdc57;
+        }
+        .vue-histogram-column-text {
+            position: absolute;
+            margin-top: 0px;
+            opacity: 1;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: top 0.8s ease-out, opacity 0.3s ease-in, margin-top 0.2s ease-out;
+        }
+        .vue-histogram-column-text span {
+            padding: 3px;
+            background: #f6f6f6;
+            border: 1px solid #ececec;
+            border-radius: 3px;
+        }
+        .vue-histogram-column-text-dollars {
+            position: absolute;
+            margin-top: 20px;
+            opacity: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: top 0.8s ease-out, opacity 0.3s ease-out 0.1s, margin-top 0.2s ease-out 0.1s;
+        }
+        .vue-histogram-column-text-dollars span {
+            padding: 3px;
+            background: #f6f6f6;
+            border: 1px solid #ececec;
+            color: #de3e47;
+            border-radius: 3px;
+        }    
+        .vue-histogram-column:hover .vue-histogram-column-text {
+            margin-top: -10px;
+            opacity: 0;
+        }  
+        .vue-histogram-column:hover .vue-histogram-column-text-dollars {
+            margin-top: 0px;
+            opacity: 1;
+        }  
         .vue-histogram-column-block {
             position: absolute; 
-            width: 10px;
-            background: red;
+            width: 30%;
+            left: 35%;
+            background: #373334;
+            transition: top 0.7s ease-out, height 0.9s ease-out, background 0.3s linear;
+        }
+        .vue-histogram-column-block.desc {
+            background: #e1e1e1;
+        }
+        .vue-histogram-months {
+            position: absolute;
+            left: 0;
+            bottom: 0px;
+            width: 100%;
+            height: 100px;
+        }
+        .vue-histogram-month {
+            position: relative;
+            float: left;
+            width: 8.32%;
+            height: 100%;
+        }
+        .vue-histogram-month-text {
+            transform: rotate(-90deg);
+            font-weight: bold;
+        }
+
+        .vue-histogram-topside {
+            position: relative;
+            width: 100%;
+            height: 80px;
+        }
+        .vue-histogram-prev-year {
+            position: absolute;
+            left: 15%;
+            top: 20px;
+            text-align: right;
+            cursor: pointer;
+        }
+        .vue-histogram-prev-year:hover {
+            color: #d84750;
+        }
+        .vue-histogram-prev-year:hover .vue-histogram-year-prev-arrow {
+            margin-top: -2px;
+        }
+        .vue-histogram-year-prev-arrow {
+            width: 100px;
+            height: 30px;
+            background: url('_1.svg');
+            transition: margin-top 0.1s ease-in;
+        }
+        .vue-histogram-next-year {
+            position: absolute;
+            right: 7%;
+            top: 20px;
+            cursor: pointer;
+        }
+        .vue-histogram-next-year:hover {
+            color: #d84750;
+        }
+        .vue-histogram-next-year:hover .vue-histogram-year-next-arrow {
+            margin-top: -2px;
+        }
+        .vue-histogram-year-next-arrow {
+            width: 100px;
+            height: 30px;
+            transform: scaleX(-1);
+            background: url('_1.svg');
+            transition: margin-top 0.1s ease-in;
+        }
+        .vue-histogram-current-year {
+            position: absolute;
+            left: 54%;
+            transform: translate(-50%);
+            top: 20px;
+        }
+
+        .vue-hm-year-shadow-animation {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            opacity: 0;
+        }
+
+        @media (min-width: 600px) {
+            .vue-histogram-percent-sign {
+                display: block;
+            } 
         }
     </style>
 </head>
@@ -105,11 +240,35 @@
 
     <script>
         PROFITDATA = {
-            "2020": [30, 20, 10, 0, -5, 15, 30, 20, 10, 0, -5, 15]
+            "2017": [1243, 1345, 1437, 1519, 1400, 1327, 1261, 1315, 1115, 1232, 1226, 1299],
+            "2018": [1463, 1553, 1402, 1652, 1517, 1339, 1446, 1516, 1690, 1953, 2130, 2349],
+            "2019": [2565, 2562, 2734, 2952, 2927, 2781, 2948, 2693, 2853, 2702, 2832, 2707],
+            "2020": [1400, 1500, 800, 960, 1380, 1280, 1260, 1000, 1100, 1200, 1300, 1400],
+            "2021": [2769, 2472, 2504, 2437, 2583, 2477, 2565, 2656, 2510, 2594, 2375, 2305],
+            "2022": [2033, 2024, 2169, 2094, 1950, 1920, 2014, 2032, 1835, 1962, 1731, 1526],
         }
     </script>
 
     <div id="vue-histogram">
+        <div class="vue-histogram-topside">
+            <div class="vue-histogram-prev-year" @click="toPrevYear">
+                <span  ref="prevYear">{{prevYear}}</span>
+                <div class="vue-histogram-year-prev-arrow" v-if="prevYear != ''"></div>
+                <div class="vue-hm-year-shadow-animation" ref="prevYearShadow">{{currentYear}}</div>
+                <div class="vue-hm-year-shadow-animation" ref="prevYearShadowFade">{{currentYear}}</div>
+            </div>
+            <div class="vue-histogram-current-year">
+                <span  ref="currentYear">{{currentYear}}</span>
+                <div class="vue-hm-year-shadow-animation" ref="currentYearShadow">{{currentYear}}</div>
+                <div class="vue-hm-year-shadow-animation" ref="currentYearShadowFade">{{currentYear}}</div>
+            </div>
+            <div class="vue-histogram-next-year" @click="toNextYear">
+                <span  ref="nextYear">{{nextYear}}</span>
+                <div class="vue-histogram-year-next-arrow" v-if="nextYear != ''"></div>
+                <div class="vue-hm-year-shadow-animation" ref="nextYearShadow">{{currentYear}}</div>
+                <div class="vue-hm-year-shadow-animation" ref="nextYearShadowFade">{{currentYear}}</div>
+            </div>
+        </div>
         <div class="vue-histogram-leftside">
             <div class="vue-histogram-percent-sign">%</div>
             <div class="vue-histogram-measures">
@@ -139,13 +298,30 @@
                 class="vue-histogram-column"
                 v-for="(item, index) in columns"
                 v-key="index">
-                    <div class="vue-histogram-column-text">
-                        {{item.value}}
+                    <div 
+                    class="vue-histogram-column-text"
+                    :style="{top: item.top - 30 + 'px'}">
+                         <span>{{item.value}} %</span>
                     </div>
                     <div 
-                        class="vue-histogram-column-block"
+                    class="vue-histogram-column-text-dollars"
+                    :style="{top: item.top - 30 + 'px'}">
+                         <span>{{item.dollars}} $</span>
+                    </div>
+                    <div 
+                        :class="{'vue-histogram-column-block': true, 'desc': item.delta < 0}"
                         :style="{top: item.top + 'px', height: item.height + 'px'}">
                         </div>
+                </div>
+            </div>
+            <div class="vue-histogram-months">
+                <div 
+                class="vue-histogram-month"
+                v-for="item in months"
+                v-key="item">
+                    <div class="vue-histogram-month-text">
+                        {{item}}               
+                    </div>
                 </div>
             </div>
         </div>
@@ -155,12 +331,37 @@
         var VueHistogram = new Vue({
             el: '#vue-histogram',
             data: {
+                currentYear: 2020,
                 minValue: -10,
-                maxValue: 35,
+                maxValue: 37,
                 interval: 5,
-                plotHeight: 400 // должно совпадать с высотой графика
+                plotHeight: 400, // должно совпадать с высотой графика
+                months: ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
             },
             computed: {
+                columns: function() {
+                    var height = this.getMeasuresHeight()
+                    var profitdata = PROFITDATA[this.currentYear.toString()]
+                    var prevprofitdata = PROFITDATA[(this.currentYear - 1).toString()]
+
+                    var dollars = profitdata
+                    var prevdata = prevprofitdata
+                        ? prevprofitdata.map(x => (x - 1000) / 10) 
+                        : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    var data = profitdata.map(x => (x - 1000) / 10)
+                    var origin = this.getOrigin()
+                    var ratio = this.getPlotNumsRatio()
+                    var min = Math.floor(this.minValue / 5) * 5
+                    var max = Math.ceil(this.maxValue / 5) * 5
+
+                    return data.map((x, i) => { return {
+                        value: x,
+                        dollars: dollars[i],
+                        top: x > 0 ? ratio * (max - x) + height * 0.5 : origin + height * 0.5,
+                        height: x > 0 ? (ratio * x) : -(ratio * x),
+                        delta: i > 0 ? x - data[i - 1] : x - prevdata[11]
+                    }})
+                },
                 measures: function() {
                     var result = [];
                     var min = Math.floor(this.minValue / 5) * 5
@@ -173,16 +374,17 @@
                 measuresHeight: function() {
                     return this.getMeasuresHeight();
                 },
-                columns: function() {
-                    var height = this.getMeasuresHeight()
-                    var data = PROFITDATA["2020"]
-                    var origin = this.getOrigin()
-                    var ratio = this.getPlotNumsRatio()
-                    return data.map(x => { return {
-                        value: x,
-                        top: x > 0 ? ratio * (this.maxValue - x) + height * 0.5 : origin + height * 0.5,
-                        height: x > 0 ? (ratio * x) : -(ratio * x)
-                    }})
+                prevYear: function() {
+                    let year = PROFITDATA[(this.currentYear - 1).toString()] 
+                    return year && year.find(x => x !== 0)
+                        ? this.currentYear - 1 
+                        : ''
+                },
+                nextYear: function() {
+                    let year = PROFITDATA[(this.currentYear + 1).toString()] 
+                    return year && year.find(x => x !== 0)
+                        ? this.currentYear + 1
+                        : ''
                 }
                /* measuresPositions: function() {
                     var result = [];
@@ -201,7 +403,177 @@
                 },
                 getPlotNumsRatio: function() {
                     return this.plotHeight / (this.maxValue - this.minValue)
+                },
+                updateExtrems: function() {
+                    var profitdata = PROFITDATA[this.currentYear.toString()]
+                    var data = profitdata.map(x => (x - 1000) / 10)
+                    this.maxValue = data.reduce((s,c) => s < c ? c : s, 0) + 5
+                    this.minValue = data.reduce((s,c) => s > c ? c : s, 0) - 5
+                },
+                toPrevYear: function() {
+                    if (this.prevYear !== '') {
+                        var c_y = this.$refs.currentYear
+                        var c_r = this.$refs.currentYearShadow
+                        var c_f = this.$refs.currentYearShadowFade
+                        var p_y = this.$refs.prevYear
+                        var p_r = this.$refs.prevYearShadow
+                        var p_f = this.$refs.prevYearShadowFade
+                        var n_y = this.$refs.nextYear
+                        var n_r = this.$refs.nextYearShadow
+                        var n_f = this.$refs.nextYearShadowFade
+
+                        var t = 0.3;
+
+                        $(c_y).css('opacity', '0')
+                        $(p_y).css('opacity', '0')
+                        $(n_y).css('opacity', '0')
+
+                        $(c_r).html(this.currentYear - 1)                        
+                        $(c_r).css('transition', 'none')
+                        $(c_r).css('left', '-50px')
+                        $(c_r).css('opacity', '0')
+                        $(p_r).html(this.currentYear - 2)                        
+                        $(p_r).css('transition', 'none')
+                        $(p_r).css('right', '50px')
+                        $(p_r).css('opacity', '0')
+                        $(n_r).html(this.currentYear)                        
+                        $(n_r).css('transition', 'none')
+                        $(n_r).css('left', '-50px')
+                        $(n_r).css('opacity', '0')
+
+                        $(c_f).html(this.currentYear)                        
+                        $(c_f).css('transition', 'none')
+                        $(c_f).css('left', '0px')
+                        $(c_f).css('opacity', '1')
+                        $(p_f).html(this.currentYear - 1)                        
+                        $(p_f).css('transition', 'none')
+                        $(p_f).css('right', '0')
+                        $(p_f).css('opacity', '1')
+                        $(n_f).html(this.currentYear + 1)                        
+                        $(n_f).css('transition', 'none')
+                        $(n_f).css('left', '0px')
+                        $(n_f).css('opacity', '1')
+
+                        setTimeout(function() {
+                            $(c_r).css('left', '0')
+                            $(c_r).css('opacity', '1')
+                            $(c_r).css('transition', 'left ' + t +'s ease-out, opacity ' + (t * 0.7) +'s linear')
+                            $(p_r).css('right', '0')
+                            $(p_r).css('opacity', '1')
+                            $(p_r).css('transition', 'right ' + t +'s ease-out, opacity ' + (t * 0.7) +'s linear')
+                            $(n_r).css('left', '0')
+                            $(n_r).css('opacity', '1')
+                            $(n_r).css('transition', 'left ' + t +'s ease-out, opacity ' + (t * 0.7) +'s linear')
+
+                            $(c_f).css('left', '50px')
+                            $(c_f).css('opacity', '0')
+                            $(c_f).css('transition', 'left ' + t +'s ease-out, opacity ' + t +'s linear')
+                            $(p_f).css('right', '-50px')
+                            $(p_f).css('opacity', '0')
+                            $(p_f).css('transition', 'right ' + t +'s ease-out, opacity ' + t +'s linear')
+                            $(n_f).css('left', '50px')
+                            $(n_f).css('opacity', '0')
+                            $(n_f).css('transition', 'left ' + t +'s ease-out, opacity ' + t +'s linear')
+                        }, 10)
+
+                        setTimeout(function() {
+                            $(c_y).css('opacity', '1')
+                            $(c_r).css('opacity', '0')
+                            $(p_y).css('opacity', '1')
+                            $(p_r).css('opacity', '0')
+                            $(n_y).css('opacity', '1')
+                            $(n_r).css('opacity', '0')
+                        }, t * 1000)
+
+                        this.currentYear--
+                    }
+                },
+                toNextYear: function() {
+                    if (this.nextYear !== '') {
+                        var c_y = this.$refs.currentYear
+                        var c_r = this.$refs.currentYearShadow
+                        var c_f = this.$refs.currentYearShadowFade
+                        var p_y = this.$refs.prevYear
+                        var p_r = this.$refs.prevYearShadow
+                        var p_f = this.$refs.prevYearShadowFade
+                        var n_y = this.$refs.nextYear
+                        var n_r = this.$refs.nextYearShadow
+                        var n_f = this.$refs.nextYearShadowFade
+
+                        var t = 0.3;
+
+                        $(c_y).css('opacity', '0')
+                        $(p_y).css('opacity', '0')
+                        $(n_y).css('opacity', '0')
+
+                        $(c_r).html(this.currentYear + 1)                        
+                        $(c_r).css('transition', 'none')
+                        $(c_r).css('left', '50px')
+                        $(c_r).css('opacity', '0')
+                        $(p_r).html(this.currentYear)                        
+                        $(p_r).css('transition', 'none')
+                        $(p_r).css('right', '-50px')
+                        $(p_r).css('opacity', '0')
+                        $(n_r).html(this.currentYear + 2)                        
+                        $(n_r).css('transition', 'none')
+                        $(n_r).css('left', '50px')
+                        $(n_r).css('opacity', '0')
+
+                        $(c_f).html(this.currentYear)                        
+                        $(c_f).css('transition', 'none')
+                        $(c_f).css('left', '0px')
+                        $(c_f).css('opacity', '1')
+                        $(p_f).html(this.currentYear - 1)                        
+                        $(p_f).css('transition', 'none')
+                        $(p_f).css('right', '0')
+                        $(p_f).css('opacity', '1')
+                        $(n_f).html(this.currentYear + 1)                        
+                        $(n_f).css('transition', 'none')
+                        $(n_f).css('left', '0px')
+                        $(n_f).css('opacity', '1')
+
+                        setTimeout(function() {
+                            $(c_r).css('left', '0')
+                            $(c_r).css('opacity', '1')
+                            $(c_r).css('transition', 'left ' + t +'s ease-out, opacity ' + (t * 0.7) +'s linear')
+                            $(p_r).css('right', '0')
+                            $(p_r).css('opacity', '1')
+                            $(p_r).css('transition', 'right ' + t +'s ease-out, opacity ' + (t * 0.7) +'s linear')
+                            $(n_r).css('left', '0')
+                            $(n_r).css('opacity', '1')
+                            $(n_r).css('transition', 'left ' + t +'s ease-out, opacity ' + (t * 0.7) +'s linear')
+
+                            $(c_f).css('left', '-50px')
+                            $(c_f).css('opacity', '0')
+                            $(c_f).css('transition', 'left ' + t +'s ease-out, opacity ' + t +'s linear')
+                            $(p_f).css('right', '50px')
+                            $(p_f).css('opacity', '0')
+                            $(p_f).css('transition', 'right ' + t +'s ease-out, opacity ' + t +'s linear')
+                            $(n_f).css('left', '-50px')
+                            $(n_f).css('opacity', '0')
+                            $(n_f).css('transition', 'left ' + t +'s ease-out, opacity ' + t +'s linear')
+                        }, 10)
+
+                        setTimeout(function() {
+                            $(c_y).css('opacity', '1')
+                            $(c_r).css('opacity', '0')
+                            $(p_y).css('opacity', '1')
+                            $(p_r).css('opacity', '0')
+                            $(n_y).css('opacity', '1')
+                            $(n_r).css('opacity', '0')
+                        }, t * 1000)
+
+                        this.currentYear++
+                    }
                 }
+            },
+            watch: {
+                currentYear: function() {
+                    this.updateExtrems()
+                }
+            },
+            created: function() {
+                    this.updateExtrems()
             }
         })
     </script>
