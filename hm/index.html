@@ -97,14 +97,25 @@
         }
         .vue-histogram-column-text {
             position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             margin-top: 0px;
             opacity: 1;
-            width: 100%;
             text-align: center;
             font-size: 12px;
             font-weight: bold;
             white-space: nowrap;
             transition: top 0.8s ease-out, opacity 0.3s ease-in, margin-top 0.2s ease-out;
+            z-index: 10;
+        }
+        .vue-histogram-column:first-child .vue-histogram-column-text {
+            left: 0;
+            transform: none;           
+        }
+        .vue-histogram-column:last-child .vue-histogram-column-text {
+            right: 0;
+            left: auto;
+            transform: none;            
         }
         .vue-histogram-column-text span {
             padding: 3px;
@@ -114,14 +125,25 @@
         }
         .vue-histogram-column-text-dollars {
             position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             margin-top: 20px;
             opacity: 0;
-            width: 100%;
             text-align: center;
             font-size: 12px;
             font-weight: bold;
             white-space: nowrap;
             transition: top 0.8s ease-out, opacity 0.3s ease-out 0.1s, margin-top 0.2s ease-out 0.1s;
+            z-index: 12;
+        }
+        .vue-histogram-column:first-child .vue-histogram-column-text-dollars {
+            left: 0;
+            transform: none;           
+        }
+        .vue-histogram-column:last-child .vue-histogram-column-text-dollars {
+            right: 0;
+            left: auto;
+            transform: none;            
         }
         .vue-histogram-column-text-dollars span {
             padding: 3px;
@@ -143,7 +165,7 @@
             width: 30%;
             left: 35%;
             background: #373334;
-            transition: top 0.7s ease-out, height 0.9s ease-out, background 0.3s linear;
+            transition: top 0.7s cubic-bezier(0.39, 0.58, 0.4, 1.09), height 0.9s cubic-bezier(0.39, 0.58, 0.4, 1.09), background 0.3s ease-out;
         }
         .vue-histogram-column-block.desc {
             background: #e1e1e1;
@@ -170,6 +192,7 @@
             position: relative;
             width: 100%;
             height: 80px;
+            z-index: 10;
         }
         .vue-histogram-prev-year {
             position: absolute;
@@ -187,7 +210,7 @@
         .vue-histogram-year-prev-arrow {
             width: 100px;
             height: 30px;
-            background: url('_1.svg');
+            background: url('https://static.tildacdn.com/tild3338-6265-4437-b230-653466623432/_1.svg');
             transition: margin-top 0.1s ease-in;
         }
         .vue-histogram-next-year {
@@ -206,7 +229,7 @@
             width: 100px;
             height: 30px;
             transform: scaleX(-1);
-            background: url('_1.svg');
+            background: url('https://static.tildacdn.com/tild3338-6265-4437-b230-653466623432/_1.svg');
             transition: margin-top 0.1s ease-in;
         }
         .vue-histogram-current-year {
@@ -227,6 +250,26 @@
             .vue-histogram-percent-sign {
                 display: block;
             } 
+            .vue-histogram-column:first-child .vue-histogram-column-text {
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);          
+            }
+            .vue-histogram-column:last-child .vue-histogram-column-text {
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);            
+            }
+            .vue-histogram-column:first-child .vue-histogram-column-text-dollars {
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);           
+            }
+            .vue-histogram-column:last-child .vue-histogram-column-text-dollars {
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);            
+            }
         }
     </style>
 </head>
@@ -240,13 +283,16 @@
 
     <script>
         PROFITDATA = {
-            "2017": [1243, 1345, 1437, 1519, 1400, 1327, 1261, 1315, 1115, 1232, 1226, 1299],
-            "2018": [1463, 1553, 1402, 1652, 1517, 1339, 1446, 1516, 1690, 1953, 2130, 2349],
-            "2019": [2565, 2562, 2734, 2952, 2927, 2781, 2948, 2693, 2853, 2702, 2832, 2707],
-            "2020": [1400, 1500, 800, 960, 1380, 1280, 1260, 1000, 1100, 1200, 1300, 1400],
-            "2021": [2769, 2472, 2504, 2437, 2583, 2477, 2565, 2656, 2510, 2594, 2375, 2305],
-            "2022": [2033, 2024, 2169, 2094, 1950, 1920, 2014, 2032, 1835, 1962, 1731, 1526],
+            "2017": [983, 900, 1019, 1025, 1029, 1049, 1064, 1087, 1085, 1090, 1067, 1080],
+            "2018": [1105, 1073, 1075, 1041, 1046, 1054, 1082, 1047, 1032, 1065, 950, 1036],
+            "2019": [1075, 1077, 1107, 1087, 1089, 1065, 1041, 1062, 1065, 1069, 1065, 1062],
+            "2020": [1025, 1006, 985, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            "2021": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            "2022": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            "2022": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            "2023": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         }
+        CURRENTHMYEAR = new Date().getFullYear()
     </script>
 
     <div id="vue-histogram">
@@ -299,19 +345,22 @@
                 v-for="(item, index) in columns"
                 v-key="index">
                     <div 
+                    v-if="item.dollars !== 0"
                     class="vue-histogram-column-text"
-                    :style="{top: item.top - 30 + 'px'}">
+                    :style="{top: item.top - 30 + item.mobileOffset * mobileOffsetCoeff + 'px'}">
                          <span>{{item.value}} %</span>
                     </div>
                     <div 
+                    v-if="item.dollars !== 0"
                     class="vue-histogram-column-text-dollars"
-                    :style="{top: item.top - 30 + 'px'}">
+                    :style="{top: item.top - 30 + item.mobileOffset * mobileOffsetCoeff + 'px'}">
                          <span>{{item.dollars}} $</span>
                     </div>
                     <div 
-                        :class="{'vue-histogram-column-block': true, 'desc': item.delta < 0}"
-                        :style="{top: item.top + 'px', height: item.height + 'px'}">
-                        </div>
+                    v-if="item.dollars !== 0"
+                    :class="{'vue-histogram-column-block': true, 'desc': item.value < 0}"
+                    :style="{top: item.top + 'px', height: item.height + 'px'}">
+                    </div>
                 </div>
             </div>
             <div class="vue-histogram-months">
@@ -336,7 +385,8 @@
                 maxValue: 37,
                 interval: 5,
                 plotHeight: 400, // должно совпадать с высотой графика
-                months: ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
+                months: ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'],
+                mobileOffsetCoeff: 0
             },
             computed: {
                 columns: function() {
@@ -354,13 +404,38 @@
                     var min = Math.floor(this.minValue / 5) * 5
                     var max = Math.ceil(this.maxValue / 5) * 5
 
-                    return data.map((x, i) => { return {
-                        value: x,
-                        dollars: dollars[i],
-                        top: x > 0 ? ratio * (max - x) + height * 0.5 : origin + height * 0.5,
-                        height: x > 0 ? (ratio * x) : -(ratio * x),
-                        delta: i > 0 ? x - data[i - 1] : x - prevdata[11]
-                    }})
+                    var result = []
+                    var _prevtop = 0;
+                    for (var i=0; i<data.length; i++) {
+                        var x = data[i]
+                        var _top = x > 0 ? ratio * (max - x) + height * 0.5 : origin
+                        var _off = Math.abs(_top - _prevtop) > 20 ? 0 : -_top + _prevtop - 20
+                        result.push({
+                            value: x,
+                            dollars: dollars[i],
+                            top: _top,
+                            mobileOffset: _off,
+                            height: x > 0 ? (ratio * x) : -(ratio * x),
+                            delta: i > 0 ? x - data[i - 1] : x - prevdata[11]
+                        })
+                        _prevtop = _top + _off;
+                    }
+
+                    return result;
+
+                    /*return data.map((x, i) => { 
+                        var _top = x > 0 ? ratio * (max - x) + height * 0.5 : origin
+                        var _prevtop = (data[i - 1] || 1e6 > 0 ? ratio * (max - data[i - 1] || 1e6) + height * 0.5 : origin) + (data[i - 1] ? data[i - 1].mobileOffset : 0)
+                        console.log((data[i - 1] || 1e6 > 0 ? ratio * (max - data[i - 1] || 1e6) + height * 0.5 : origin), (data[i - 1] ? data[i - 1].mobileOffset : 0))
+                        return {
+                            value: x,
+                            dollars: dollars[i],
+                            top: _top,
+                            mobileOffset: Math.abs(_top - _prevtop) > 30 ? 0 : _top - _prevtop > 0 ? -30 : 0,
+                            height: x > 0 ? (ratio * x) : -(ratio * x),
+                            delta: i > 0 ? x - data[i - 1] : x - prevdata[11]
+                        }
+                    })*/
                 },
                 measures: function() {
                     var result = [];
@@ -399,7 +474,9 @@
                     return this.plotHeight / (this.maxValue - this.minValue) * this.interval
                 },
                 getOrigin: function() {
-                    return this.getPlotNumsRatio() * (this.maxValue - 0)
+                    var height = this.getMeasuresHeight()
+                    var max = Math.ceil(this.maxValue / 5) * 5
+                    return this.getPlotNumsRatio() * (max - 0) + height * 0.5 
                 },
                 getPlotNumsRatio: function() {
                     return this.plotHeight / (this.maxValue - this.minValue)
@@ -407,8 +484,8 @@
                 updateExtrems: function() {
                     var profitdata = PROFITDATA[this.currentYear.toString()]
                     var data = profitdata.map(x => (x - 1000) / 10)
-                    this.maxValue = data.reduce((s,c) => s < c ? c : s, 0) + 5
-                    this.minValue = data.reduce((s,c) => s > c ? c : s, 0) - 5
+                    this.maxValue = data.filter((x, i) => profitdata[i] !== 0).reduce((s,c) => s < c ? c : s, 0) + 5
+                    this.minValue = data.filter((x, i) => profitdata[i] !== 0).reduce((s,c) => s > c ? c : s, 0) - 5
                 },
                 toPrevYear: function() {
                     if (this.prevYear !== '') {
@@ -573,7 +650,12 @@
                 }
             },
             created: function() {
-                    this.updateExtrems()
+                    this.currentYear = CURRENTHMYEAR
+                    var self = this
+                    self.mobileOffsetCoeff = window.innerWidth < 600 ? 1 : 0
+                    $(window).resize(function(){
+                        self.mobileOffsetCoeff = window.innerWidth < 600 ? 1 : 0
+                    })
             }
         })
     </script>

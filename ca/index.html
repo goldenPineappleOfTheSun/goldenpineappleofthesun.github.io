@@ -129,16 +129,20 @@
         .vue-profit-calculator-tab:hover {
             background: #3c3738;
         }
-        .vue-profit-calculator-pf {
+        #vue-profit-calculator .vue-profit-calculator-pf {
             min-width: 200px;
             border: 1.5px solid #d11e29;
             padding: 0 20px;
             line-height: 55px;
+            color: white;
+            text-decoration: none;
             white-space: nowrap;
         }
-        .vue-profit-calculator-hgf {
+        #vue-profit-calculator .vue-profit-calculator-hgf {
             padding: 15px 20px;
             min-width: 200px;
+            color: white;
+            text-decoration: none;
         }
         .vue-icon-suitcase {
             position: relative;
@@ -147,7 +151,7 @@
             width: 30px;
             height: 30px;
             margin-left: 10px;
-            background: url('suitcase_1.svg');
+            background: url('https://static.tildacdn.com/tild6330-6531-4164-b136-666331396464/suitcase_1.svg');
         }
 
         .vue-profit-calculator-prognosis {
@@ -237,7 +241,6 @@
             border-color: transparent;
             border-style: solid;
             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-            color: #f3ece4;
             text-align: center;
             padding: 14px 0;
             z-index: 48;
@@ -248,20 +251,23 @@
             background-color: #e8dccc;
         }
 
-        .vue-profit-consultation-btn:hover a{
-            color: #000000;
-        }
 
-        .vue-profit-consultation-btn a {
+        .vue-profit-consultation-btn-a {
             font-size: 16px;
             font-family: 'Roboto',Arial,sans-serif;
             text-decoration: none;
             font-size: 14px;
             color: #f3ece4;
             line-height: 1.55;
+            text-decoration: none;
             font-weight: 400;
+            color: #f3ece4;
         }
 
+        .vue-profit-consultation-btn-a:hover{
+            color: #000000;
+        }
+        
         @media (min-width: 530px)
         {
             .vue-profit-calculator-wrapper {
@@ -536,12 +542,12 @@
                     :scales="[3, 12, 72, 144, 360]"/>
                 </div>
                 <div class="vue-profit-calculator-tabs">
-                    <div class="vue-profit-calculator-tab vue-profit-calculator-pf">
+                    <a class="vue-profit-calculator-tab vue-profit-calculator-pf" href="features#tools">
                         Состав портфеля <span class="vue-icon-suitcase"></span>
-                    </div>
-                    <div class="vue-profit-calculator-tab vue-profit-calculator-hgf">
+                    </a>
+                    <a class="vue-profit-calculator-tab vue-profit-calculator-hgf" href="#Graffik">
                         График доходности хэдж-фонда 
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="vue-profit-calculator-prognosis">
@@ -574,9 +580,11 @@
                             units="%"/>
                     </div>
 
-                    <div class="vue-profit-consultation-btn">
-                        <a class="tn-atom" href="#8">Получить консультацию</a>
-                    </div>
+                    <a href="#forma" class="tn-atom vue-profit-consultation-btn-a">
+                        <div class="vue-profit-consultation-btn">
+                            Получить консультацию
+                        </div>
+                    </a>
                 </div>
             </div> 
         </div>
