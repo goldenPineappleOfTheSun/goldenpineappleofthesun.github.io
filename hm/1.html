@@ -1,0 +1,174 @@
+<style>
+.vue-histogram-leftside{position:relative;float:left;width:15%;max-width:10rem;height:500px}.vue-histogram-rightside{position:relative;float:left;width:85%;height:600px}.vue-histogram-percent-sign{position:absolute;margin-right:30px;right:30%;top:50%;transform:translate(0,-50%);font-size:30px;font-weight:700;display:none}.vue-histogram-measures{display:table;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;position:relative;width:100%;height:100%;padding:0 20px 100px 0}.vue-histogram-measure{width:100%;display:table-row;font-size:20px}.vue-histogram-measure-cell{width:100%;display:table-cell;vertical-align:middle;text-align:right}.vue-histogram-background{position:absolute;left:0;top:0;width:100%;height:100%}.vue-histogram-ruler{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;position:relative;left:0;width:100%;border-bottom:1.1px dashed #d8d8d8}.vue-histogram-columns{position:absolute;box-sizing:border-box;left:0;top:0;width:100%;height:100%;overflow:hidden}.vue-histogram-column{position:relative;float:left;width:8.32%;height:100%;cursor:pointer}.vue-histogram-column:hover{background:#dcdcdc57}.vue-histogram-column-text{position:absolute;left:50%;transform:translateX(-50%);margin-top:0;opacity:1;text-align:center;font-size:12px;font-weight:700;white-space:nowrap;transition:top .8s ease-out,opacity .3s ease-in,margin-top .2s ease-out;z-index:10}.vue-histogram-column:first-child .vue-histogram-column-text{left:0;transform:none}.vue-histogram-column:last-child .vue-histogram-column-text{right:0;left:auto;transform:none}.vue-histogram-column-text span{padding:3px;background:#f6f6f6;border:1px solid #ececec;border-radius:3px}.vue-histogram-column-text-dollars{position:absolute;left:50%;transform:translateX(-50%);margin-top:20px;opacity:0;text-align:center;font-size:12px;font-weight:700;white-space:nowrap;transition:top .8s ease-out,opacity .3s ease-out .1s,margin-top .2s ease-out .1s;z-index:12}.vue-histogram-column:first-child .vue-histogram-column-text-dollars{left:0;transform:none}.vue-histogram-column:last-child .vue-histogram-column-text-dollars{right:0;left:auto;transform:none}.vue-histogram-column-text-dollars span{padding:3px;background:#f6f6f6;border:1px solid #ececec;color:#de3e47;border-radius:3px}.vue-histogram-column:hover .vue-histogram-column-text{margin-top:-10px;opacity:0}.vue-histogram-column:hover .vue-histogram-column-text-dollars{margin-top:0;opacity:1}.vue-histogram-column-block{position:absolute;width:30%;left:35%;background:#373334;transition:top .7s cubic-bezier(.39,.58,.4,1.09),height .9s cubic-bezier(.39,.58,.4,1.09),background .3s ease-out}.vue-histogram-column-block.desc{background:#e1e1e1}.vue-histogram-months{position:absolute;left:0;bottom:0;width:100%;height:100px}.vue-histogram-month{position:relative;float:left;width:8.32%;height:100%}.vue-histogram-month-text{transform:rotate(-90deg);font-weight:700}.vue-histogram-topside{position:relative;width:100%;height:80px;z-index:10}.vue-histogram-prev-year{position:absolute;left:15%;top:20px;text-align:right;cursor:pointer}.vue-histogram-prev-year:hover{color:#d84750}.vue-histogram-prev-year:hover .vue-histogram-year-prev-arrow{margin-top:-2px}.vue-histogram-year-prev-arrow{width:100px;height:30px;background:url(https://static.tildacdn.com/tild3338-6265-4437-b230-653466623432/_1.svg);transition:margin-top .1s ease-in}.vue-histogram-next-year{position:absolute;right:7%;top:20px;cursor:pointer}.vue-histogram-next-year:hover{color:#d84750}.vue-histogram-next-year:hover .vue-histogram-year-next-arrow{margin-top:-2px}.vue-histogram-year-next-arrow{width:100px;height:30px;transform:scaleX(-1);background:url(https://static.tildacdn.com/tild3338-6265-4437-b230-653466623432/_1.svg);transition:margin-top .1s ease-in}.vue-histogram-current-year{position:absolute;left:54%;transform:translate(-50%);top:20px}.vue-hm-year-shadow-animation{position:absolute;left:20px;top:0;opacity:0}@media (min-width:600px){.vue-histogram-percent-sign{display:block}.vue-histogram-column:first-child .vue-histogram-column-text{right:auto;left:50%;transform:translateX(-50%)}.vue-histogram-column:last-child .vue-histogram-column-text{right:auto;left:50%;transform:translateX(-50%)}.vue-histogram-column:first-child .vue-histogram-column-text-dollars{right:auto;left:50%;transform:translateX(-50%)}.vue-histogram-column:last-child .vue-histogram-column-text-dollars{right:auto;left:50%;transform:translateX(-50%)}}
+</style>
+
+`<div id="vue-histogram"> <div class="vue-histogram-topside"> <div class="vue-histogram-prev-year" @click="toPrevYear"> <span ref="prevYear">{{prevYear}}</span> <div class="vue-histogram-year-prev-arrow" v-if="prevYear !=''"></div><div class="vue-hm-year-shadow-animation" ref="prevYearShadow">{{currentYear}}</div><div class="vue-hm-year-shadow-animation" ref="prevYearShadowFade">{{currentYear}}</div></div><div class="vue-histogram-current-year"> <span ref="currentYear">{{currentYear}}</span> <div class="vue-hm-year-shadow-animation" ref="currentYearShadow">{{currentYear}}</div><div class="vue-hm-year-shadow-animation" ref="currentYearShadowFade">{{currentYear}}</div></div><div class="vue-histogram-next-year" @click="toNextYear"> <span ref="nextYear">{{nextYear}}</span> <div class="vue-histogram-year-next-arrow" v-if="nextYear !=''"></div><div class="vue-hm-year-shadow-animation" ref="nextYearShadow">{{currentYear}}</div><div class="vue-hm-year-shadow-animation" ref="nextYearShadowFade">{{currentYear}}</div></div></div><div class="vue-histogram-leftside"> <div class="vue-histogram-percent-sign">%</div><div class="vue-histogram-measures"> <div class="vue-histogram-measure" v-for="item in measures" v-key="item" :style="{height: measuresHeight + 'px'}"> <div class="vue-histogram-measure-cell">{{item}}</div></div></div></div><div class="vue-histogram-rightside"> <div class="vue-histogram-background" :style="{top: (-measuresHeight / 2) + 'px'}"> <div class="vue-histogram-ruler" v-for="item in measures" v-key="item" :style="{height: measuresHeight + 'px'}"> </div></div><div class="vue-histogram-columns"> <div class="vue-histogram-column" v-for="(item, index) in columns" v-key="index"> <div v-if="item.dollars !==0" class="vue-histogram-column-text" :style="{top: item.top - 30 + item.mobileOffset * mobileOffsetCoeff + 'px'}"> <span>{{item.value}}%</span> </div><div v-if="item.dollars !==0" class="vue-histogram-column-text-dollars" :style="{top: item.top - 30 + item.mobileOffset * mobileOffsetCoeff + 'px'}"> <span>{{item.dollars}}$</span> </div><div v-if="item.dollars !==0" :class="{'vue-histogram-column-block': true, 'desc': item.value < 0}" :style="{top: item.top + 'px', height: item.height + 'px'}"> </div></div></div><div class="vue-histogram-months"> <div class="vue-histogram-month" v-for="item in months" v-key="item"> <div class="vue-histogram-month-text">{{item}}</div></div></div></div></div>`
+
+<sript>
+    var VueHistogram=new Vue({el:'#vue-histogram',data:{currentYear:2020,minValue:-10,maxValue:37,interval:5,plotHeight:400,months:['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'],mobileOffsetCoeff:0},computed:{columns:function(){var height=this.getMeasuresHeight()
+var profitdata=PROFITDATA[this.currentYear.toString()]
+var prevprofitdata=PROFITDATA[(this.currentYear-1).toString()]
+var dollars=profitdata
+var prevdata=prevprofitdata?prevprofitdata.map(x=>(x-1000)/10):[0,0,0,0,0,0,0,0,0,0,0,0]
+var data=profitdata.map(x=>(x-1000)/10)
+var origin=this.getOrigin()
+var ratio=this.getPlotNumsRatio()
+var min=Math.floor(this.minValue/5)*5
+var max=Math.ceil(this.maxValue/5)*5
+var result=[]
+var _prevtop=0;for(var i=0;i<data.length;i++){var x=data[i]
+var _top=x>0?ratio*(max-x)+height*0.5:origin
+var _off=Math.abs(_top-_prevtop)>20?0:-_top+_prevtop-20
+result.push({value:x,dollars:dollars[i],top:_top,mobileOffset:_off,height:x>0?(ratio*x):-(ratio*x),delta:i>0?x-data[i-1]:x-prevdata[11]})
+_prevtop=_top+_off}
+return result},measures:function(){var result=[];var min=Math.floor(this.minValue/5)*5
+var max=Math.ceil(this.maxValue/5)*5
+for(var i=min;i<=max;i+=this.interval){result.push(i)}
+return result.reverse()},measuresHeight:function(){return this.getMeasuresHeight()},prevYear:function(){let year=PROFITDATA[(this.currentYear-1).toString()]
+return year&&year.find(x=>x!==0)?this.currentYear-1:''},nextYear:function(){let year=PROFITDATA[(this.currentYear+1).toString()]
+return year&&year.find(x=>x!==0)?this.currentYear+1:''}},methods:{getMeasuresHeight:function(){return this.plotHeight/(this.maxValue-this.minValue)*this.interval},getOrigin:function(){var height=this.getMeasuresHeight()
+var max=Math.ceil(this.maxValue/5)*5
+return this.getPlotNumsRatio()*(max-0)+height*0.5},getPlotNumsRatio:function(){return this.plotHeight/(this.maxValue-this.minValue)},updateExtrems:function(){var profitdata=PROFITDATA[this.currentYear.toString()]
+var data=profitdata.map(x=>(x-1000)/10)
+this.maxValue=data.filter((x,i)=>profitdata[i]!==0).reduce((s,c)=>s<c?c:s,0)+5
+this.minValue=data.filter((x,i)=>profitdata[i]!==0).reduce((s,c)=>s>c?c:s,0)-5},toPrevYear:function(){if(this.prevYear!==''){var c_y=this.$refs.currentYear
+var c_r=this.$refs.currentYearShadow
+var c_f=this.$refs.currentYearShadowFade
+var p_y=this.$refs.prevYear
+var p_r=this.$refs.prevYearShadow
+var p_f=this.$refs.prevYearShadowFade
+var n_y=this.$refs.nextYear
+var n_r=this.$refs.nextYearShadow
+var n_f=this.$refs.nextYearShadowFade
+var t=0.3;$(c_y).css('opacity','0')
+$(p_y).css('opacity','0')
+$(n_y).css('opacity','0')
+$(c_r).html(this.currentYear-1)
+$(c_r).css('transition','none')
+$(c_r).css('left','-50px')
+$(c_r).css('opacity','0')
+$(p_r).html(this.currentYear-2)
+$(p_r).css('transition','none')
+$(p_r).css('right','50px')
+$(p_r).css('opacity','0')
+$(n_r).html(this.currentYear)
+$(n_r).css('transition','none')
+$(n_r).css('left','-50px')
+$(n_r).css('opacity','0')
+$(c_f).html(this.currentYear)
+$(c_f).css('transition','none')
+$(c_f).css('left','0px')
+$(c_f).css('opacity','1')
+$(p_f).html(this.currentYear-1)
+$(p_f).css('transition','none')
+$(p_f).css('right','0')
+$(p_f).css('opacity','1')
+$(n_f).html(this.currentYear+1)
+$(n_f).css('transition','none')
+$(n_f).css('left','0px')
+$(n_f).css('opacity','1')
+setTimeout(function(){$(c_r).css('left','0')
+$(c_r).css('opacity','1')
+$(c_r).css('transition','left '+t+'s ease-out, opacity '+(t*0.7)+'s linear')
+$(p_r).css('right','0')
+$(p_r).css('opacity','1')
+$(p_r).css('transition','right '+t+'s ease-out, opacity '+(t*0.7)+'s linear')
+$(n_r).css('left','0')
+$(n_r).css('opacity','1')
+$(n_r).css('transition','left '+t+'s ease-out, opacity '+(t*0.7)+'s linear')
+$(c_f).css('left','50px')
+$(c_f).css('opacity','0')
+$(c_f).css('transition','left '+t+'s ease-out, opacity '+t+'s linear')
+$(p_f).css('right','-50px')
+$(p_f).css('opacity','0')
+$(p_f).css('transition','right '+t+'s ease-out, opacity '+t+'s linear')
+$(n_f).css('left','50px')
+$(n_f).css('opacity','0')
+$(n_f).css('transition','left '+t+'s ease-out, opacity '+t+'s linear')},10)
+setTimeout(function(){$(c_y).css('opacity','1')
+$(c_r).css('opacity','0')
+$(p_y).css('opacity','1')
+$(p_r).css('opacity','0')
+$(n_y).css('opacity','1')
+$(n_r).css('opacity','0')},t*1000)
+this.currentYear--}},toNextYear:function(){if(this.nextYear!==''){var c_y=this.$refs.currentYear
+var c_r=this.$refs.currentYearShadow
+var c_f=this.$refs.currentYearShadowFade
+var p_y=this.$refs.prevYear
+var p_r=this.$refs.prevYearShadow
+var p_f=this.$refs.prevYearShadowFade
+var n_y=this.$refs.nextYear
+var n_r=this.$refs.nextYearShadow
+var n_f=this.$refs.nextYearShadowFade
+var t=0.3;$(c_y).css('opacity','0')
+$(p_y).css('opacity','0')
+$(n_y).css('opacity','0')
+$(c_r).html(this.currentYear+1)
+$(c_r).css('transition','none')
+$(c_r).css('left','50px')
+$(c_r).css('opacity','0')
+$(p_r).html(this.currentYear)
+$(p_r).css('transition','none')
+$(p_r).css('right','-50px')
+$(p_r).css('opacity','0')
+$(n_r).html(this.currentYear+2)
+$(n_r).css('transition','none')
+$(n_r).css('left','50px')
+$(n_r).css('opacity','0')
+$(c_f).html(this.currentYear)
+$(c_f).css('transition','none')
+$(c_f).css('left','0px')
+$(c_f).css('opacity','1')
+$(p_f).html(this.currentYear-1)
+$(p_f).css('transition','none')
+$(p_f).css('right','0')
+$(p_f).css('opacity','1')
+$(n_f).html(this.currentYear+1)
+$(n_f).css('transition','none')
+$(n_f).css('left','0px')
+$(n_f).css('opacity','1')
+setTimeout(function(){$(c_r).css('left','0')
+$(c_r).css('opacity','1')
+$(c_r).css('transition','left '+t+'s ease-out, opacity '+(t*0.7)+'s linear')
+$(p_r).css('right','0')
+$(p_r).css('opacity','1')
+$(p_r).css('transition','right '+t+'s ease-out, opacity '+(t*0.7)+'s linear')
+$(n_r).css('left','0')
+$(n_r).css('opacity','1')
+$(n_r).css('transition','left '+t+'s ease-out, opacity '+(t*0.7)+'s linear')
+$(c_f).css('left','-50px')
+$(c_f).css('opacity','0')
+$(c_f).css('transition','left '+t+'s ease-out, opacity '+t+'s linear')
+$(p_f).css('right','50px')
+$(p_f).css('opacity','0')
+$(p_f).css('transition','right '+t+'s ease-out, opacity '+t+'s linear')
+$(n_f).css('left','-50px')
+$(n_f).css('opacity','0')
+$(n_f).css('transition','left '+t+'s ease-out, opacity '+t+'s linear')},10)
+setTimeout(function(){$(c_y).css('opacity','1')
+$(c_r).css('opacity','0')
+$(p_y).css('opacity','1')
+$(p_r).css('opacity','0')
+$(n_y).css('opacity','1')
+$(n_r).css('opacity','0')},t*1000)
+this.currentYear++}}},watch:{currentYear:function(){this.updateExtrems()}},created:function(){this.currentYear=CURRENTHMYEAR
+var self=this
+self.mobileOffsetCoeff=window.innerWidth<600?1:0
+$(window).resize(function(){self.mobileOffsetCoeff=window.innerWidth<600?1:0})}})
+</sript>
+
+
+
+    <script>
+        PROFITDATA = {
+            "2017": [983, 900, 1019, 1025, 1029, 1049, 1064, 1087, 1085, 1090, 1067, 1080],
+            "2018": [1105, 1073, 1075, 1041, 1046, 1054, 1082, 1047, 1032, 1065, 950, 1036],
+            "2019": [1075, 1077, 1107, 1087, 1089, 1065, 1041, 1062, 1065, 1069, 1065, 1062],
+            "2020": [1025, 1006, 985, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            "2021": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            "2022": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            "2022": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            "2023": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        }
+        CURRENTHMYEAR = new Date().getFullYear()
+    </script>
