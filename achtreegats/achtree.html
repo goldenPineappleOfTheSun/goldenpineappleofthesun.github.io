@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .screen {
+            position: relative;
+        }
+
+        .node {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: url(frame.png);    
+            background-size: 100px 100px;    
+            cursor: pointer;
+        }
+
+        .node-door {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            background-image: url(frame-door-simple.png);    
+            background-size: 100px 100px;
+        }
+
+        .icon {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            left: 25px;
+            top: 25px;
+            background-size: 50px 50px;
+        }
+
+        .name {
+            position: absolute;
+            width: 100%;
+            top: 80px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            padding: 5px;
+            text-align: center;
+            border-radius: 3px;
+        }
+
+        .description {
+            position: absolute;
+            min-width: 120px;
+            top: 110px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            display: none;
+            padding: 5px;
+            background-color: #ffe5c3b5;
+            text-align: center;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .node:hover .description,
+        .node-door:hover .description {
+            display: block;
+        }
+
+        .horizontal-line {
+            position: absolute;
+            transform: translate(0, 50px);
+            width: 100px;
+            height: 1px;
+            background-color: #aaa;
+            border-bottom: 1px solid #eee;
+        }
+
+        .vertical-line {
+            position: absolute;
+            transform: translate(50px, 30px);
+            width: 1px;
+            height: 70px;
+            background-color: #aaa;
+            border-right: 1px solid #eee;
+        }
+
+        .top-right-corner {
+            position: absolute;
+        }
+
+        .top-right-corner_part-1 {
+            position: absolute;
+            transform: translate(50px, 0px);
+            width: 1px;
+            height: 50px;
+            background-color: #aaa;
+            border-right: 1px solid #eee;
+        }
+
+        .top-right-corner_part-2 {
+            position: absolute;
+            transform: translate(50px, 50px);
+            width: 50px;
+            height: 1px;
+            background-color: #aaa;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+<div class="screen">
+
+    <div class="node" style="left:100px; top:200px;">
+        <div class="icon" style="background-image:url(hello-world-icon.png);"></div>
+        <div class="name">
+            Привет, Мир!
+        </div>
+        <div class="description">
+            Принять свою силу. И свою ответственность
+        </div>
+    </div>
+
+    <div class="horizontal-line" style="left:200px; top:200px;">
+    </div>
+    
+    <div class="node-door" style="left:300px; top:200px; background-image:url(data-types-door.png);">
+        <div class="icon" style="background-image:url(data-types-icon.png);"></div>
+        <div class="name">
+            Типы данных
+        </div>
+        <div class="description">
+            Прочитать состав на упаковке
+        </div>
+    </div>
+
+    <div class="horizontal-line" style="left:400px; top:200px;">
+    </div>
+
+    <div class="vertical-line" style="left:300px; top:300px;">
+    </div>
+    
+    <div class="node-door" style="left:500px; top:200px; background-image:url(python-door.png);">
+        <div class="icon" style="background-image:url(python-icon.png);"></div>
+        <div class="name">
+            Привет, Питон!
+        </div>
+        <div class="description">
+            Душить змею 10 часов
+        </div>
+    </div>
+
+    <div class="vertical-line" style="left:500px; top:300px;">
+    </div>
+
+    <div class="horizontal-line" style="left:400px; top:400px;">
+    </div>
+
+    <div class="top-right-corner" style="left:300px; top:400px;">
+        <div class="top-right-corner_part-1"></div>
+        <div class="top-right-corner_part-2"></div>
+    </div>
+    
+    <div class="node" style="left:500px; top:400px; background-image:url(first-pet-milestone.png);">
+        <div class="icon" style="background-image:url(first-pet-icon.png);"></div>
+        <div class="name">
+            Первый проект
+        </div>
+        <div class="description">
+            Придумать имя для своего меча, используя ГРЧ
+        </div>
+    </div>
+
+    <div class="vertical-line" style="left:300px; top:100px;">
+    </div>
+
+    <div class="node" style="left:300px; top:0px;">
+        <div class="icon" style="background-image:url(basic-spelling.png);"></div>
+        <div class="name">
+            Базовые конструкции языков
+        </div>
+        <div class="description">
+            Случайно ляпнуть что-то умное
+        </div>
+    </div>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>  
+
+<script>
+    function createNode() {
+
+    }
+</script>
+
+</body>
+</html>
