@@ -33,6 +33,15 @@
             background-size: 100px 100px;
         }
 
+        .node-milestone {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            transform: translate(-25px, -25px);
+            cursor: pointer;  
+            background-size: 150px 150px;
+        }
+
         .icon {
             position: relative;
             width: 50px;
@@ -40,6 +49,11 @@
             left: 25px;
             top: 25px;
             background-size: 50px 50px;
+        }
+
+        .node-milestone .icon {
+            left: 50px;
+            top: 50px;
         }
 
         .name {
@@ -51,6 +65,10 @@
             padding: 5px;
             text-align: center;
             border-radius: 3px;
+        }
+
+        .node-milestone .name {
+            top: 110px;
         }
 
         .description {
@@ -66,9 +84,13 @@
             border-radius: 5px;
             z-index: 100;
         }
+        .node-milestone .description {
+            top: 130px;
+        }
 
         .node:hover .description,
-        .node-door:hover .description {
+        .node-door:hover .description,
+        .node-milestone:hover .description {
             display: block;
         }
 
@@ -167,13 +189,13 @@
         <div class="top-right-corner_part-2"></div>
     </div>
     
-    <div class="node" style="left:500px; top:400px; background-image:url(first-pet-milestone.png);">
+    <div class="node-milestone" style="left:500px; top:400px; background-image:url(first-pet-milestone.png);">
         <div class="icon" style="background-image:url(first-pet-icon.png);"></div>
         <div class="name">
             Первый проект
         </div>
         <div class="description">
-            Придумать имя для своего меча, используя ГРЧ
+            Придумать имя для своего меча, используя ГРЧ <br/> (потребовалось: списки, словари)
         </div>
     </div>
 
@@ -186,11 +208,11 @@
             Базовые конструкции языков
         </div>
         <div class="description">
-            Случайно ляпнуть что-то умное
+            Случайно ляпнуть что-то умное <br/> (потребовалось: if, else, for, while, try)
         </div>
     </div>
 
-    <div class="horizontal-line" style="left:400px; top:0px;">
+    <div class="vertical-line" style="left:500px; top:100px;">
     </div>
     
     <div class="node-door" style="left:500px; top:0px; background-image:url(telegram-bot-door.png);">
@@ -200,6 +222,19 @@
         </div>
         <div class="description">
             Вступить в семью
+        </div>
+    </div>
+
+    <div class="horizontal-line" style="left:600px; top:0px;">
+    </div>
+    
+    <div class="node" style="left:700px; top:0px;">
+        <div class="icon" style="background-image:url(weather-icon.png);"></div>
+        <div class="name">
+            Бот, показывающий погоду
+        </div>
+        <div class="description">
+            Внедриться в озоновый слой <br/> (потребовалось: гугление, осмысленное экспериментирование)
         </div>
     </div>
 
