@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;400&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+        }
+
+        .list {
+            padding-right: 2em;
+            list-style-type: none;
+        }
+
+        .element {
+            position: relative;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            opacity: 0.5;
+        }
+
+        .element.is-done {
+            border: 1px solid #e0f2a8;
+            background: #e0f2a822;
+            opacity: 1;
+        }
+
+        .element-description {
+            font-size: 0.8em;
+            color: #00000099;
+            font-style: italic;
+        }
+
+        .element-icon-door {
+            display: inline-block;
+        }
+
+        .element-hard {
+            display: inline-block;
+        }
+
+        .element-hard:after {
+            content: '💀';
+            margin-left: 10px;
+            font-size: 0.7em;
+            border-radius: 50%;
+            background: #cf4747;
+        }
+
+        .element-door {
+            display: inline-block;
+        }
+
+        .element-door:after {
+            content: '🚪';
+            margin-left: 10px;
+            font-size: 0.7em;
+            border-radius: 50%;
+            background: #f2cc45;
+        }
+
+        .element-opened {
+            display: inline-block;
+        }
+
+        .element-opened:after {
+            content: '🔑';
+            margin-left: 10px;
+            font-size: 0.7em;
+            border-radius: 50%;
+            background: #4caabe;
+        }
+
+        .element-big {
+            display: inline-block;
+        }
+
+        .element-big:after {
+            content: '🌟';
+            margin-left: 10px;
+            font-size: 0.7em;
+            border-radius: 50%;
+            background: #f284ff ;
+        }
+
+        .element-composed {
+            font-size: 0.7em;
+            color: #aaa;
+            padding-top: 10px;
+            font-family: 'Raleway';
+        }
+
+        .element-composed-item {
+            padding-left: 50px;
+        }
+
+        .statistics {
+            display: flex;
+            padding-left: 20px;
+            font-family: 'Raleway';
+        }
+
+        .statistics-text {
+            padding: 15px 0;
+        }
+
+        .statistics-done {
+            padding: 15px;
+        }
+
+        .statistics-div {
+            padding: 15px 0;
+        }
+
+        .statistics-left {
+            padding: 15px;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="screen">
+        <ul class="list">
+
+            <div class="statistics">
+                
+                <div class="statistics-text">Достижений получено:</div>
+                <div class="statistics-done">12</div>
+                <div class="statistics-div">/</div>
+                <div class="statistics-left">12</div>
+            </div>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Привет, мир!
+                    <div class="element-door"></div>
+                </div>
+                <div class="element-description">В начале было слово</div>
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Привет, Питон!
+                    <div class="element-door"></div>
+                </div>
+                <div class="element-description">Душить Питона 10 часов</div>
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Базовые конструкции языка
+                </div>
+                <div class="element-description">Случайно ляпнуть что-нибудь умное</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Инструкция if
+                </div>
+                <div class="element-description">Актуализировать свободу</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Инструкция for
+                </div>
+                <div class="element-description">You spin me right round, baby</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Инструкция import
+                </div>
+                <div class="element-description">Принять в себя весь мир</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Типы данных
+                    <div class="element-door"></div>
+                </div>
+                <div class="element-description">Узнать, что мир неоднороден</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Строки в Питоне
+                </div>
+                <div class="element-description">Натянуть</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Числа в Питоне
+                </div>
+                <div class="element-description">Посчитать</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Списки в Питоне
+                </div>
+                <div class="element-description">Собрать</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Словари в Питоне
+                </div>
+                <div class="element-description">Рассортировать</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Перечисляемые типы в Питоне
+                </div>
+                <div class="element-description">Перечислить</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Множества в Питоне
+                </div>
+                <div class="element-description">Объеденить</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Регекспы в Питоне
+                </div>
+                <div class="element-description">Найти всё, что скрыто</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Функции
+                </div>
+                <div class="element-description">Всё ли функция?</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Объект
+                </div>
+                <div class="element-description">Всё ли объект?</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Функции в питоне
+                </div>
+                <div class="element-description">Посмотреть на Питон с левой стороны</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Классы в питоне
+                </div>
+                <div class="element-description">Посмотреть на Питон с правой стороны</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Наследование в Питоне
+                </div>
+                <div class="element-description">Фу</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Случайность
+                    <div class="element-door"></div>
+                </div>
+                <div class="element-description">Сгенерировать рандомное число</div>
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Привет, ООП!
+                    <div class="element-door"></div>
+                </div>
+                <div class="element-description">Иди теперь руки мой</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Оно живое!
+                </div>
+                <div class="element-description">Сделать экземпляр класса</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Привет, Функциональная парадигма!
+                    <div class="element-door"></div>
+                </div>
+                <div class="element-description">Может пригодиться</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Умение гуглить
+                    <div class="element-big"></div>
+                </div>
+                <div class="element-description"></div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Осознанное экспериментирование
+                </div>
+                <div class="element-description">Тык тык тык</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Стрессоустойчивость
+                    <div class="element-hard"></div>
+                </div>
+                <div class="element-description">Гори, гори моя ж</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Первый проект на Питоне
+                    <div class="element-hard"></div>
+                    <div class="element-opened"></div>
+                    <div class="element-big"></div>
+                </div>
+                <div class="element-description">Придумать имя для своего меча, используя генератор рандомных чисел</div>   
+                <div class="element-composed">
+                    <div class="element-composed-item">Умение гуглить</div>
+                    <div class="element-composed-item">Осознанное экспериментирование</div>
+                    <div class="element-composed-item">Стрессоустойчивость</div>
+                    <div class="element-composed-item">Словари в Питоне</div>
+                    <div class="element-composed-item">Списки в Питоне</div>
+                </div>             
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Привет, Postgres!
+                    <div class="element-door"></div>
+                </div>
+                <div class="element-description">Установить Postgres на компик</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Привет, Telegram-bot!
+                    <div class="element-door"></div>
+                </div>
+                <div class="element-description">Вступить в семью</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Но пейджинг
+                </div>
+                <div class="element-description"></div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Озоновый слой
+                    <div class="element-big"></div>
+                </div>
+                <div class="element-description">Написать бота, который показывает погоду на три дня вперёд</div>                
+            </li>
+
+            <li class="element is-done">
+                <div class="element-name">
+                    Привет, Джанго!
+                </div>
+                <div class="element-description">Поприветствовать Нигера</div>                
+            </li>
+
+            <li class="element">
+                <div class="element-name">
+                    Позови меня назад
+                </div>
+                <div class="element-description">Использовать коллбеки</div>                
+            </li>
+
+            <li class="element">
+                <div class="element-name">
+                    Короткое замыкание
+                </div>
+                <div class="element-description">Использовать замыкание</div>                
+            </li>
+
+            <li class="element">
+                <div class="element-name">
+                    Функциональная красота
+                </div>
+                <div class="element-description">Использовать декоратор</div>                
+            </li>
+
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+
+        $(document).ready(() => {
+            $('.statistics-done').text($('.element.is-done').length);
+            $('.statistics-left').text($('.element').length);
+        })
+    
+    </script>
+
+</body>
+</html>
